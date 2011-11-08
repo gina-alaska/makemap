@@ -1,0 +1,11 @@
+%html
+  %head
+    %title MakeMAP
+    = include_css(:extjs, :version => '4.1-pr1')
+    = include_js(:extjs, :version => '4.1-pr1')
+    = include_js(:openlayers)
+    = javascript_include_tag "application"
+
+  %body
+    %h1 MAKING A MAP IS FUN
+    =yield
