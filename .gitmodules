@@ -1,0 +1,3 @@
+[submodule "app/assets/javascripts/openlayers"]
+	path = app/assets/javascripts/openlayers
+	url = https://github.com/gina-alaska/extjs-openlayers.git

@@ -1,4 +1,6 @@
 //= require_self
+//= require_tree ./openlayers
+//= require_tree ./makemap/libs
 //= require_tree ./makemap/model
 //= require_tree ./makemap/store
 //= require_tree ./makemap/view
@@ -12,25 +14,27 @@ Ext.application({
   appFolder: 'makemap',
 
 
-  views: ['map'],
-
+  views: ['map','controls','pixelsize'],
+  controllers: ['Map','Controls'],
+  
   launch: function() {
     Ext.create('Ext.container.Viewport', {
       layout: 'border',
       items: [{
         xtype: 'panel',
-        title: 'Controls',
-        html : '<h1>Making maps is fun!</h1>',
+        height: 100,
         region: 'north'
       },{
-        xtype: 'map',
-       // xtype: 'panel',
-        html: "I'm a map",
-        region: 'center'
-      },{
+        region: 'center',
         xtype: 'panel',
-        html: "I do stuff",
-        region: "east"
+        layout: 'fit',
+        itemId: 'content'
+      },{
+        xtype: 'mapcontrols',
+        width: 300,
+        split: true,
+        region: "east",
+        id: "sidebar"
       }]
     });
   }

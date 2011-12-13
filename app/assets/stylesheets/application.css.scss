@@ -1,0 +1,64 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require_tree . 
+*/
+@import "compass/css3";
+
+$active-tool-bg: #FF0;
+$active-tool-border-color: red;
+$inactive-tool-bg: #FFF;
+$inactive-tool-border-color: white;
+$mouse-bg: #FFF;
+
+.olControlPanel {
+  right: 20px;
+  top: 0;
+
+  div {
+    display:block;
+    float: right;
+    width: 28px;
+    height: 28px;
+    margin: 5px;
+    background-color: #fff;
+  }
+}
+
+@mixin mapToolIcons($name, $icon, $iconOpts: '') {
+  .#{$name}Active {
+    background: url($icon) no-repeat #{$iconOpts};
+    @include border-radius(3px);
+    border: 1px solid $active-tool-border-color;
+    background-color: $active-tool-bg;
+    background-color: transparentize($active-tool-bg, 0.25);
+  }
+  .#{$name}Inactive {
+    background: url($icon) no-repeat #{$iconOpts};
+    @include border-radius(3px);
+    border: 1px solid $inactive-tool-border-color;
+    background-color: $inactive-tool-bg;
+    background-color: transparentize($inactive-tool-bg, 0.25);
+  }
+}
+
+.olControlPanel {
+  @include mapToolIcons('olControlSelectFeatureItem', '/assets/geo/pointer-info.png');
+  @include mapToolIcons('olControlDrawFeatureItem', '/assets/geo/shape_square_blue.png', '5px 5px');
+}
+
+
+.olControlMousePosition {
+  background-color: $mouse-bg;
+  background-color: transparentize( $mouse-bg, 0.25 );
+}
+
+.geoShapeSquare {
+  background: url('/assets/geo/shape_square_blue.png') center no-repeat;
+}
+
+.geoPan {
+  background: url('/assets/geo/pan.png') center no-repeat;
+}
