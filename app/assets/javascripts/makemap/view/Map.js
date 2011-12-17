@@ -2,34 +2,39 @@ Ext.define('MM.view.Map', {
   extend: 'Ext.OpenLayers.Basic',
   alias: "widget.map",
   bodyStyle: "background: black",
-  autoScroll: true,
-
-
-
+  
   initComponent: function() {
     this.addEvents("aoiadd");
 
-    var projectionButton = {
+    var aoiButton = {
       xtype: "button",
-      text: "Projection",
-      menu: [{
-        text: "Alaskan Albers",
-        projection: "EPSG:3338"
-      },{
-        text: "Technically we don't do this",
-        projection: "EPSG:4326"
-      },{
-        text: "Polar",
-        projection: "EPSG:3572"
-      },{
-        text: "Google",
-        projection: "google"
-      }]
+      itemId: "aoi",
+      scale: 'medium',
+      iconCls: 'geoShapeSquare',
+      enableToggle: true,
+      toggleGroup: 'maptools'
     };
+    var selectButton = {
+      xtype: "button",
+      itemId: "select",
+      scale: 'medium',
+      iconCls: 'geoPan',
+      enableToggle: true,
+      pressed: true,
+      toggleGroup: 'maptools'
+    };
+
+    this.layersMenu = Ext.create( 'Ext.menu.Menu' );
+    var layersButton = {
+      xtype: 'button',
+      text: 'Layers',
+      menu: this.layersMenu
+    };
+
     this.dockedItems = [{
       xtype: "toolbar",
       dock: "top",
-      items: projectionButton
+      items: [selectButton, aoiButton, layersButton ] //projectionButton
     }];
 
     this.callParent(arguments);
@@ -57,20 +62,24 @@ Ext.define('MM.view.Map', {
     });
 
     var mouseControl = new OpenLayers.Control.Navigation({
-      zoomWheelEnabled: true
+      zoomWheelEnabled: true,
+      mouseWheelOptions: {
+        interval: 100
+      }
     });
-
-    mouseControl.enableZoomWheel();
 
     var mouseLocation = new OpenLayers.Control.MousePosition({
       displayProjection: this.getMap().displayProjection,
       numDigits: 4
     });
 
-//    var layerPanel = new OpenLayers.Control.LayerSwitcher();
-//    layerPanel.activate();
-
     this.getMap().addControls([mouseLocation,mouseControl,this.aoiTool]);
+    this.getMap().events.register('addlayer', this, this.buildLayerMenu);
+    this.getMap().events.register('changebaselayer', this, this.buildLayerMenu);
+    this.getMap().events.register('changelayer', this, this.buildLayerMenu);
+    this.getMap().events.register('removelayer', this, this.buildLayerMenu);
+
+    this.buildLayerMenu();
   },
   
   aoiAdd: function(e) {
@@ -79,6 +88,10 @@ Ext.define('MM.view.Map', {
   
   beforeFeatureAdded: function() {
     this.aoiLayer.removeAllFeatures();
+  },
+
+  buildLayerMenu: function() {
+    this.fireEvent('buildLayerMenu', this);
   }
 
 });

@@ -9,16 +9,8 @@ Ext.define('MM.controller.Controls', {
   init: function() {
     this.control( {
 
-      "mapcontrols > toolbar > button[itemId='aoi']": {
-        toggle: this.aoiAdd
-      },
-
       "map": {
-        aoiadd: function( map, feature ) {
-          //Go back to the select button
-          Ext.ComponentQuery.query("mapcontrols > toolbar > button[itemId='select']")[0].toggle(true);
-          this.updateWizard( feature );
-        }
+        aoiadd: this.updateWizard
       },
 
       "mapcontrols > form > field": {
@@ -31,15 +23,6 @@ Ext.define('MM.controller.Controls', {
         }
       }
    })
-  },
-
-
-  aoiAdd: function(btn, active) {
-    if( active ) {
-      this.getMap().aoiTool.activate();
-    }else {
-      this.getMap().aoiTool.deactivate();
-    }
   },
 
   updateFields: function( field, newValue, oldValue ) {
@@ -101,7 +84,7 @@ Ext.define('MM.controller.Controls', {
     return geomLength / pixelsize;
   },
 
-  updateWizard: function( feature ) {
+  updateWizard: function( map, feature ) {
     var panel = Ext.ComponentQuery.query("mapcontrols form")[0];
     panel.enable();
     var geom = feature.geometry.clone();

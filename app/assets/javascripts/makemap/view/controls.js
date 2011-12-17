@@ -7,25 +7,7 @@ Ext.define("MM.view.Controls",{
   },
 
   initComponent: function() {
-    this.addEvents('changefoo');
 
-    var aoiButton = {
-      xtype: "button",
-      itemId: "aoi",
-      scale: 'medium',
-      iconCls: 'geoShapeSquare',
-      enableToggle: true,
-      toggleGroup: 'maptools'
-    };
-    var selectButton = {
-      xtype: "button",
-      itemId: "select",
-      scale: 'medium',
-      iconCls: 'geoPan',
-      enableToggle: true,
-      pressed: true,
-      toggleGroup: 'maptools'
-    };
     var submitButton = {
       xtype: "button",
       itemId: "submit",
@@ -36,12 +18,7 @@ Ext.define("MM.view.Controls",{
       stretch: true,
       formBind: true
     }
-    this.dockedItems = [{ 
-      xtype: "toolbar",
-      dock: "top",
-      ui: 'footer',
-      items: [selectButton,aoiButton]
-    }];
+
 
     var bubble = Ext.create("MM.libs.bubble_event",{
       target: 'mapcontrols'
@@ -53,7 +30,6 @@ Ext.define("MM.view.Controls",{
       bodyStyle: 'padding: 3px;',
       disabled: true,
       border: false,
-      flex: 1,
       items: [{
         xtype: 'pixelsize',
         increment: 10,
