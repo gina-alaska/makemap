@@ -10,19 +10,24 @@ Ext.define("MM.view.Controls",{
 
     var submitButton = {
       xtype: "button",
-      itemId: "submit",
+      itemId: "makemap",
       scale: "large",
       text: "Make Map!",
       layout: "hbox",
       flex: 1,
       stretch: true,
       formBind: true
-    }
+    };
 
-
-    var bubble = Ext.create("MM.libs.bubble_event",{
-      target: 'mapcontrols'
+    var imageFormats = Ext.create( 'Ext.data.Store', {
+      fields: ['imagetype','ext'],
+      data: [
+        { 'imagetype':'JPEG', 'ext':'jpg' },
+        { 'imagetype':'GeoTIFF', 'ext':'tiff' },
+        { 'imagetype':'GeoTIFF w/ JPEG Compression', 'ext':'tiff_jpeg' }
+      ]
     });
+
     var form = Ext.create( "Ext.form.Panel", {
       fieldDefaults: {
         anchor: '100%'
@@ -30,15 +35,16 @@ Ext.define("MM.view.Controls",{
       bodyStyle: 'padding: 3px;',
       disabled: true,
       border: false,
+      standardSubmit: true,
       items: [{
         xtype: 'pixelsize',
-        increment: 10,
-        minValue: 1,
-        maxValue: 4000,
-        value: 50,
-        width: 200,
+        layout: {
+          type: 'hbox',
+          align: 'stretch'
+        },
         fieldLabel: "Pixel Size",
-        name: 'pixelsize'
+        name: 'pixelsize',
+        height: 25
       },{
         xtype: 'numberfield',
         minValue: 200,
@@ -51,6 +57,17 @@ Ext.define("MM.view.Controls",{
         maxValue: 10000,
         fieldLabel: "Image Height",
         name: 'imageheight'
+      },{
+        xtype: 'combobox',
+        fieldLabel: 'Image Format',
+        name: 'imageformat',
+        store: imageFormats,
+        queryMode: 'local',
+        displayField: 'imagetype',
+        valueField: 'ext',
+        forceSelection: true,
+        allowBlank: false,
+        value: 'JPEG'
       },{
         xtype: 'hiddenfield',
         name: 'ratio'

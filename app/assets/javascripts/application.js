@@ -13,9 +13,8 @@ Ext.application({
 
   appFolder: 'makemap',
 
-
   views: ['map','controls','pixelsize'],
-  controllers: ['Map','Controls'],
+  controllers: ['Map','Controls','Makemap'],
   
   launch: function() {
     Ext.create('Ext.container.Viewport', {

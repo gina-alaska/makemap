@@ -2,9 +2,12 @@ Ext.define('MM.view.Map', {
   extend: 'Ext.OpenLayers.Basic',
   alias: "widget.map",
   bodyStyle: "background: black",
+  layers:  ['bdl_3338', 'osm_base_3338'],
   
   initComponent: function() {
     this.addEvents("aoiadd");
+
+    this.layers= ['bdl_3338', 'osm_base_3338','townships_3338'];
 
     var aoiButton = {
       xtype: "button",
@@ -28,13 +31,14 @@ Ext.define('MM.view.Map', {
     var layersButton = {
       xtype: 'button',
       text: 'Layers',
+      scale: 'medium',
       menu: this.layersMenu
     };
 
     this.dockedItems = [{
       xtype: "toolbar",
       dock: "top",
-      items: [selectButton, aoiButton, layersButton ] //projectionButton
+      items: [selectButton, aoiButton, layersButton ]
     }];
 
     this.callParent(arguments);
@@ -74,11 +78,13 @@ Ext.define('MM.view.Map', {
     });
 
     this.getMap().addControls([mouseLocation,mouseControl,this.aoiTool]);
-    this.getMap().events.register('addlayer', this, this.buildLayerMenu);
-    this.getMap().events.register('changebaselayer', this, this.buildLayerMenu);
-    this.getMap().events.register('changelayer', this, this.buildLayerMenu);
-    this.getMap().events.register('removelayer', this, this.buildLayerMenu);
-
+    /*
+ //   this.getMap().events.register('addlayer', this, this.buildLayerMenu);
+ //   this.getMap().events.register('changebaselayer', this, this.buildLayerMenu);
+  //  this.getMap().events.register('changelayer', this, this.buildLayerMenu);
+  //  this.getMap().events.register('removelayer', this, this.buildLayerMenu);
+//
+*/
     this.buildLayerMenu();
   },
   

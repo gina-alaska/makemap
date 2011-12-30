@@ -16,8 +16,8 @@ Ext.define('MM.controller.Controls', {
       "mapcontrols > form > field": {
         blur: this.updateFields
       },
-      "mapcontrols > form > pixelsize": {
-        dragend: {
+      "mapcontrols > form numberfield": {
+        change: {
           fn: this.updateFields,
           buffer: 200
         }
@@ -28,7 +28,7 @@ Ext.define('MM.controller.Controls', {
   updateFields: function( field, newValue, oldValue ) {
     var panel = Ext.ComponentQuery.query("mapcontrols form")[0];
     var fields = panel.getForm().getFieldValues();
-
+    
     var geom = this.getMap().aoiLayer.features[0].geometry;
     var gWidth = geom.getBounds().getWidth();
     var gHeight = geom.getBounds().getHeight();
@@ -37,10 +37,9 @@ Ext.define('MM.controller.Controls', {
 
     var values = {};
 
-    console.log("Last Value: ", field.lastValue );
-
     switch( field.name ) {
-      case 'pixelsize':
+      case 'pixelvalue':
+      case 'pixelslider':
         Ext.apply( values, {
           imagewidth: Math.ceil( this.calcImageLength( gWidth, field.getValue() )),
           imageheight: Math.ceil( this.calcImageLength( gHeight, field.getValue() ))
@@ -70,7 +69,6 @@ Ext.define('MM.controller.Controls', {
         break;
     }
 
-
     panel.getForm().setValues( values );
 
     this.updateInfo( geom );
@@ -87,9 +85,10 @@ Ext.define('MM.controller.Controls', {
   updateWizard: function( map, feature ) {
     var panel = Ext.ComponentQuery.query("mapcontrols form")[0];
     panel.enable();
+    
     var geom = feature.geometry.clone();
 
-    var pixelsize = panel.getForm().getValues().pixelsize;
+    var pixelsize = panel.getForm().getValues().pixelslider;
     var width = this.calcImageLength( geom.getBounds().getWidth(), pixelsize );
     var height = this.calcImageLength( geom.getBounds().getHeight(), pixelsize );
     var ratio = width / height;
@@ -98,6 +97,7 @@ Ext.define('MM.controller.Controls', {
       imageheight: Math.round(height),
       ratio: ratio
     });
+    console.log("Values: ", panel.getForm().getValues() )
     this.updateInfo(geom);
   },
 
