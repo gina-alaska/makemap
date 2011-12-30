@@ -20,9 +20,9 @@ class MakeMapWMS
   WMS_BASE = "REQUEST=GetMap&SERVICE=WMS&STYLES=&VERSION=1.1.1&BGCOLOR=0xFFFFFF&TRANSPARENT=TRUE"
   def initialize *opts
     opts = opts.first
-    @wms = opts[:wms] || "wms.alaskamapped.org"
-    @baselayer_short = LAYERS.has_key?(opts[:baseLayer]) ? opts[:baseLayer] : "bdl"
-    @layers = [LAYERS[@baselayer_short.to_sym], opts[:layers]].flatten.compact.join(',')
+    @wms = opts[:baseLayer].first || "http://wms.alaskamapped.org/bdl"
+    @layers = opts[:baseLayer].last || "BestDataAvailableLayer"
+    #@layers = [opts[:baseLayer][:wmsName], opts[:layers]].flatten.compact.join(',')
     @width = opts[:imagewidth] || 1024
     @height = opts[:imageheight] || 1024
     @bbox = opts[:bbox]
@@ -39,7 +39,7 @@ class MakeMapWMS
     "HEIGHT=#{@height}",
     "reaspect=false"]
 
-    "http://#{@wms}/#{@baselayer_short.to_s}/makemap.#{ext}?#{query.join('&')}"
+    "#{@wms}/makemap.#{ext}?#{query.join('&')}"
   end
 
   def type

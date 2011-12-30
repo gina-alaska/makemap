@@ -86,7 +86,9 @@ Ext.define('MM.controller.Map', {
       }
     }, this);
     this.getMap().layersMenu.removeAll();
-    this.getMap().layersMenu.add('<b>Base Layer</b>', base, '-', '<b>Overlays</b>', overlay);
+    //this.getMap().layersMenu.add('<b>Base Layer</b>', base, '-', '<b>Overlays</b>', overlay);
+
+    this.getMap().layersMenu.add(base);
   },
 
   baseMenuHandler: function( item ) {

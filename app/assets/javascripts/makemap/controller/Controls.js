@@ -33,45 +33,30 @@ Ext.define('MM.controller.Controls', {
     var gWidth = geom.getBounds().getWidth();
     var gHeight = geom.getBounds().getHeight();
 
-    var gSize, width, height, pixelsize;  
+    var gSize, width, height;
 
     var values = {};
 
     switch( field.name ) {
-      case 'pixelvalue':
-      case 'pixelslider':
-        Ext.apply( values, {
-          imagewidth: Math.ceil( this.calcImageLength( gWidth, field.getValue() )),
-          imageheight: Math.ceil( this.calcImageLength( gHeight, field.getValue() ))
-        });
-        break;
       case 'imagewidth':
-        pixelsize = this.calcPixelSize( gWidth, field.value);
-        imageheight = this.calcImageLength( gHeight, pixelsize );
         imageheight = Math.round(field.value / fields.ratio);
-        //imageheight = (field.value * gHeight) / gWidth;
-        //ratio = parseInt(fields.imageheight) / parseInt(field.lastValue);
         Ext.apply( values, {
-          imageheight: imageheight,//field.value * ratio,
-          pixelsize: pixelsize
+          imageheight: imageheight
         });
         break;
       case 'imageheight':
-        pixelsize = this.calcPixelSize( gHeight, field.value);
-        //var ratio = parseInt(fields.imagewidth) / parseInt(field.lastValue) ;
-        imagewidth = this.calcImageLength( gWidth, pixelsize );
         imagewidth = Math.round(field.value * fields.ratio);
-        //imagewidth = (field.value * gWidth) / gHeight;
         Ext.apply( values, {
-          imagewidth: imagewidth,
-          pixelsize: pixelsize
+          imagewidth: imagewidth
         });
         break;
     }
 
     panel.getForm().setValues( values );
+    //Make sure we're using the update form values
+    var pixelsize = this.calcPixelSize(gWidth, panel.getForm().getValues().imagewidth);
 
-    this.updateInfo( geom );
+    this.updateInfo( geom, pixelsize );
   },
 
   calcPixelSize: function( gSize, iSize) {
@@ -88,20 +73,23 @@ Ext.define('MM.controller.Controls', {
     
     var geom = feature.geometry.clone();
 
-    var pixelsize = panel.getForm().getValues().pixelslider;
-    var width = this.calcImageLength( geom.getBounds().getWidth(), pixelsize );
-    var height = this.calcImageLength( geom.getBounds().getHeight(), pixelsize );
-    var ratio = width / height;
+    var gWidth = geom.getBounds().getWidth();
+    var gHeight = geom.getBounds().getHeight();
+    var ratio = gWidth / gHeight;
+
+    var pixelsize = 100;  //100 meter pixels by default
+    var width = this.calcImageLength( gWidth, pixelsize);
+    var height = this.calcImageLength( gHeight, pixelsize);
+    
     panel.getForm().setValues({
-      imagewidth: Math.round(width),
-      imageheight: Math.round(height),
+      imagewidth: Math.round( width ),
+      imageheight: Math.round( height ),
       ratio: ratio
     });
-    console.log("Values: ", panel.getForm().getValues() )
-    this.updateInfo(geom);
+    this.updateInfo(geom, pixelsize);
   },
 
-  updateInfo: function( geometry ) {
+  updateInfo: function( geometry, pixelsize ) {
     var geom = geometry.clone();
     //Transforming to the map projection causes it to calculate area in degrees^2(?)
     var area = geom.getArea();
@@ -115,6 +103,7 @@ Ext.define('MM.controller.Controls', {
       centerLat: geom.getCentroid().x,
       centerLon: geom.getCentroid().y,
       area: area,
+      pixelsize: pixelsize,
       coords: geom.getVertices()
     };
 

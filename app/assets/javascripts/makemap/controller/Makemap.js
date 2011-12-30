@@ -25,6 +25,7 @@ Ext.define('MM.controller.Makemap', {
     var geom = aoi.geometry.clone();
     var bbox = geom.getVertices();
     var layers = this.getActiveLayers(map);
+    //var layers = this.getBaseLayer(map);
     var values = {};
 /*
     Ext.apply( values, {
@@ -37,8 +38,8 @@ Ext.define('MM.controller.Makemap', {
       url: "/makemap",
       method: 'get',
       params: {
-        'layers[]': this.getActiveLayers(map),
-        baseLayer: this.getBaseLayer(map),
+   //     'layers[]': this.getActiveLayers(map),
+        'baseLayer[]': this.getBaseLayer(map),
         bbox: bbox[0].x+","+bbox[0].y+","+bbox[2].x+","+bbox[2].y
       },
       target: '_blank'
@@ -47,15 +48,16 @@ Ext.define('MM.controller.Makemap', {
 
   getBaseLayer: function(map) {
     var layer;
-
+    var wms;
     Ext.each(map.layers, function(item) {
       if( !item.displayInLayerSwitcher) { return; }
-
+      console.log(item.isBaseLayer, item.getVisibility());
       if( item.getVisibility() && item.isBaseLayer ) {
-        return item.name
+        console.log("BASE LAYER:", item);
+        wms = [item.options.wmsUrl, item.options.wmsName];
       }
-    })
-    return "BestDataLayer";
+    });
+    return wms;
   },
 
   getActiveLayers: function(map) {

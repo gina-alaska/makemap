@@ -28,6 +28,7 @@ Ext.define("MM.view.Controls",{
       ]
     });
 
+
     var form = Ext.create( "Ext.form.Panel", {
       fieldDefaults: {
         anchor: '100%'
@@ -37,15 +38,6 @@ Ext.define("MM.view.Controls",{
       border: false,
       standardSubmit: true,
       items: [{
-        xtype: 'pixelsize',
-        layout: {
-          type: 'hbox',
-          align: 'stretch'
-        },
-        fieldLabel: "Pixel Size",
-        name: 'pixelsize',
-        height: 25
-      },{
         xtype: 'numberfield',
         minValue: 200,
         maxValue: 10000,
@@ -95,6 +87,7 @@ Ext.define("MM.view.Controls",{
   data_tpl: new Ext.XTemplate(
     '<tpl for=".">',
       '<p><b>Area:</b> {area:number("0.0000")}</p>',
+      '<p><b>Pixel Size: </b>{pixelsize:number("0.0000")}</p>',
       '<p><b>Center:</b> {centerLat:number("0.0000")},{centerLon:number("0.0000")}</p>',
       '<p><b>Corners:</b></p>',
       '<tpl for="coords">',
