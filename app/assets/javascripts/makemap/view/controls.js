@@ -27,8 +27,11 @@ Ext.define("MM.view.Controls",{
         { 'imagetype':'GeoTIFF w/ JPEG Compression', 'ext':'tiff_jpeg' }
       ]
     });
-
-
+    var defaultFormat = imageFormats.first();
+    this.layersStore = Ext.create( 'Ext.data.Store', {
+      fields: ['text', 'layer']
+    });
+    
     var form = Ext.create( "Ext.form.Panel", {
       fieldDefaults: {
         anchor: '100%'
@@ -38,6 +41,14 @@ Ext.define("MM.view.Controls",{
       border: false,
       standardSubmit: true,
       items: [{
+        xtype: 'combobox',
+        fieldLabel: 'Layer',
+        name: 'baselayer',
+        store: this.layersStore,
+        queryMode: 'local',
+        displayField: 'text',
+        valueField: 'layer'
+      },{
         xtype: 'numberfield',
         minValue: 200,
         maxValue: 10000,
@@ -59,7 +70,7 @@ Ext.define("MM.view.Controls",{
         valueField: 'ext',
         forceSelection: true,
         allowBlank: false,
-        value: 'JPEG'
+        value: defaultFormat
       },{
         xtype: 'hiddenfield',
         name: 'ratio'
@@ -87,7 +98,7 @@ Ext.define("MM.view.Controls",{
   data_tpl: new Ext.XTemplate(
     '<tpl for=".">',
       '<p><b>Area:</b> {area:number("0.0000")}</p>',
-      '<p><b>Pixel Size: </b>{pixelsize:number("0.0000")}</p>',
+      '<p><b>Pixel Size: </b>{pixelsize:number("0.0000")} meters</p>',
       '<p><b>Center:</b> {centerLat:number("0.0000")},{centerLon:number("0.0000")}</p>',
       '<p><b>Corners:</b></p>',
       '<tpl for="coords">',
@@ -98,7 +109,6 @@ Ext.define("MM.view.Controls",{
   ),
 
   updateInfo: function(data) {
-    console.log("Updating info: ", data );
     this.info.update(this.data_tpl.apply(data));
   }
 

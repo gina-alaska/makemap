@@ -30,7 +30,7 @@ Ext.define('MM.controller.Map', {
 
           geom.transform( map.getMap().getProjectionObject(),  map.getMap().displayProjection);
         },
-        buildLayerMenu: this.buildLayerMenu
+        buildLayerComboBox: this.buildLayerComboBox
       }
     })
   },
@@ -56,39 +56,32 @@ Ext.define('MM.controller.Map', {
     this.addMap( panel, button.projection );
   },
 
-  buildLayerMenu: function() {
-    var base = [], overlay = [];
+  buildLayerComboBox: function() {
+    var data = { baseLayers: [], overlays: [] };
+    
     Ext.each(this.getMap().getMap().layers, function(item) {
       if(!item.displayInLayerSwitcher) { return; }
 
       if(item.isBaseLayer) {
         if(item.getVisibility()) { this.activeBaseLayer = item; }
 
-        base.push({
+        data.baseLayers.push({
           text: item.name,
-          layer: item,
-          group: this.id + '_baselayer',
-          xtype: 'menucheckitem',
-          checked: item.getVisibility(),
-          scope: this,
-          checkHandler: this.baseMenuHandler
+          layer: item
         });
       } else {
-        overlay.push({
+        data.overlays.push({
           text: item.name,
-          layer: item,
-          xtype: 'menucheckitem',
-          checked: item.getVisibility(),
-          hideOnClick: false,
-          scope: this,
-          checkHandler: this.overlayMenuHandler
+          layer: item
         });
       }
     }, this);
-    this.getMap().layersMenu.removeAll();
-    //this.getMap().layersMenu.add('<b>Base Layer</b>', base, '-', '<b>Overlays</b>', overlay);
-
-    this.getMap().layersMenu.add(base);
+    
+    this.getControls().layersStore.removeAll();
+    this.getControls().layersStore.add(data.baseLayers);
+    this.getControls().down('form').getForm().setValues({
+      baselayer: this.activeBaseLayer
+    });
   },
 
   baseMenuHandler: function( item ) {

@@ -7,8 +7,8 @@ Ext.define('MM.view.Map', {
   initComponent: function() {
     this.addEvents("aoiadd");
 
-    this.layers= ['bdl_3338', 'charts', 'shaded_relief', 'landsat_pan'];
-
+    this.layers= ['bdl_3338','topo_3338']//,'bathy_3338'];
+//'charts', 'shaded_relief', 'landsat_pan',
     var aoiButton = {
       xtype: "button",
       itemId: "aoi",
@@ -27,18 +27,10 @@ Ext.define('MM.view.Map', {
       toggleGroup: 'maptools'
     };
 
-    this.layersMenu = Ext.create( 'Ext.menu.Menu' );
-    var layersButton = {
-      xtype: 'button',
-      text: 'Layers',
-      scale: 'medium',
-      menu: this.layersMenu
-    };
-
     this.dockedItems = [{
       xtype: "toolbar",
       dock: "top",
-      items: [selectButton, aoiButton, layersButton ]
+      items: [selectButton, aoiButton]
     }];
 
     this.callParent(arguments);
@@ -78,14 +70,8 @@ Ext.define('MM.view.Map', {
     });
 
     this.getMap().addControls([mouseLocation,mouseControl,this.aoiTool]);
-    /*
- //   this.getMap().events.register('addlayer', this, this.buildLayerMenu);
- //   this.getMap().events.register('changebaselayer', this, this.buildLayerMenu);
-  //  this.getMap().events.register('changelayer', this, this.buildLayerMenu);
-  //  this.getMap().events.register('removelayer', this, this.buildLayerMenu);
-//
-*/
-    this.buildLayerMenu();
+
+    this.buildLayerComboBox();
   },
   
   aoiAdd: function(e) {
@@ -96,8 +82,8 @@ Ext.define('MM.view.Map', {
     this.aoiLayer.removeAllFeatures();
   },
 
-  buildLayerMenu: function() {
-    this.fireEvent('buildLayerMenu', this);
+  buildLayerComboBox: function() {
+    this.fireEvent('buildLayerComboBox', this);
   }
 
 });

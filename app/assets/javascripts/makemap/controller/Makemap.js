@@ -27,13 +27,7 @@ Ext.define('MM.controller.Makemap', {
     var layers = this.getActiveLayers(map);
     //var layers = this.getBaseLayer(map);
     var values = {};
-/*
-    Ext.apply( values, {
-      bbox: bbox[0].x+","+bbox[0].y+","+bbox[2].x+","+bbox[2].y
-    });
 
-    form.setValues(values);
-*/
     form.submit({
       url: "/makemap",
       method: 'get',
@@ -51,9 +45,7 @@ Ext.define('MM.controller.Makemap', {
     var wms;
     Ext.each(map.layers, function(item) {
       if( !item.displayInLayerSwitcher) { return; }
-      console.log(item.isBaseLayer, item.getVisibility());
       if( item.getVisibility() && item.isBaseLayer ) {
-        console.log("BASE LAYER:", item);
         wms = [item.options.wmsUrl, item.options.wmsName];
       }
     });
