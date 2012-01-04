@@ -98,7 +98,7 @@ Ext.define("MM.view.Controls",{
   data_tpl: new Ext.XTemplate(
     '<tpl for=".">',
       '<p><b>Area:</b> {area:number("0.0000")}</p>',
-      '<p><b>Pixel Size: </b>{pixelsize:number("0.0000")} meters</p>',
+      '<p><b>Pixel Size: </b>{pixelsize:number("0")} meters</p>',
       '<p><b>Center:</b> {centerLat:number("0.0000")},{centerLon:number("0.0000")}</p>',
       '<p><b>Corners:</b></p>',
       '<tpl for="coords">',

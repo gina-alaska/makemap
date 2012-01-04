@@ -25,14 +25,12 @@ Ext.define('MM.controller.Makemap', {
     var geom = aoi.geometry.clone();
     var bbox = geom.getVertices();
     var layers = this.getActiveLayers(map);
-    //var layers = this.getBaseLayer(map);
     var values = {};
 
     form.submit({
       url: "/makemap",
       method: 'get',
       params: {
-   //     'layers[]': this.getActiveLayers(map),
         'baseLayer[]': this.getBaseLayer(map),
         bbox: bbox[0].x+","+bbox[0].y+","+bbox[2].x+","+bbox[2].y
       },

@@ -38,8 +38,12 @@ class MakeMapWMS
     "WIDTH=#{@width}",
     "HEIGHT=#{@height}",
     "reaspect=false"]
+    filename = ""
+    if @wms =~ /$http:\/\/osm/
+      filename = "/makemap.#{ext}"
+    end
 
-    "#{@wms}/makemap.#{ext}?#{query.join('&')}"
+    "#{@wms}#{filename}?#{query.join('&')}"
   end
 
   def type

@@ -7,7 +7,7 @@ Ext.define('MM.view.Map', {
   initComponent: function() {
     this.addEvents("aoiadd");
 
-    this.layers= ['bdl_3338','topo_3338']//,'bathy_3338'];
+    this.layers= ['bdl_3338','topo_3338', 'osm_base_3338']//,'bathy_3338'];
 //'charts', 'shaded_relief', 'landsat_pan',
     var aoiButton = {
       xtype: "button",
