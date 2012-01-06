@@ -1,6 +1,5 @@
 //= require_self
 //= require_tree ./openlayers
-//= require_tree ./makemap/libs
 //= require_tree ./makemap/model
 //= require_tree ./makemap/store
 //= require_tree ./makemap/view
