@@ -16,12 +16,14 @@ Description
 Getting it running
 ------------------
 
-    $ 
-
+    $ git clone # 
+    # cd into it
+    $ git submodule init
+    $ git submodule update
+    $ rake tmp:create
+    # be running in development mode if using passenger
     $ bundle install # install dependancies
-    $ # configure a database??
     $ rackup         # launch it
-*todo*
 
 License
 -------
