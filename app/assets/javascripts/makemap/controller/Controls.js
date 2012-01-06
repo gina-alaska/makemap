@@ -89,11 +89,18 @@ Ext.define('MM.controller.Controls', {
     var gWidth = geom.getBounds().getWidth();
     var gHeight = geom.getBounds().getHeight();
     var ratio = gWidth / gHeight;
+    var width, height, pixelsize;
 
-    var pixelsize = 100;  //100 meter pixels by default
-    var width = this.calcImageLength( gWidth, pixelsize);
-    var height = this.calcImageLength( gHeight, pixelsize);
-    
+    if( gWidth < gHeight ) {
+      width = 1000;
+      pixelsize = this.calcPixelSize( gWidth, width);
+      height = this.calcImageLength( gHeight, pixelsize );
+    } else {
+      height = 1000;
+      pixelsize = this.calcPixelSize( gHeight, height);
+      width = this.calcImageLength( gWidth, pixelsize);
+    }
+
     panel.getForm().setValues({
       imagewidth: Math.round( width ),
       imageheight: Math.round( height ),
