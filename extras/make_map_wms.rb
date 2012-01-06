@@ -1,8 +1,4 @@
 class MakeMapWMS
-
-  LAYERS = {
-    :bdl => "BestDataAvailableLayer"
-  }
   FORMATS = {
     :jpg => {
       :ext => "jpg",
@@ -27,6 +23,7 @@ class MakeMapWMS
     @height = opts[:imageheight] || 1024
     @bbox = opts[:bbox]
     @format = opts[:imageformat]
+    @name = opts[:name]
   end
 
   def to_s
@@ -38,12 +35,12 @@ class MakeMapWMS
     "WIDTH=#{@width}",
     "HEIGHT=#{@height}",
     "reaspect=false"]
-    filename = ""
-    if @wms =~ /$http:\/\/osm/
-      filename = "/makemap.#{ext}"
-    end
 
-    "#{@wms}#{filename}?#{query.join('&')}"
+    "#{@wms}/#{name}?#{query.join('&')}"
+  end
+
+  def name
+    "#{@name}.#{ext}"
   end
 
   def type

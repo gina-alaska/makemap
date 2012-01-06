@@ -72,6 +72,14 @@ Ext.define("MM.view.Controls",{
         allowBlank: false,
         value: defaultFormat
       },{
+        xtype: 'textfield',
+        fieldLabel: "Image Name",
+        name: 'name',
+        value: 'makemap',
+        regex: /^\w+$/,
+        regexText: "Name must be one or more of a letter, number or _",
+        allowBlank: false
+      },{
         xtype: 'hiddenfield',
         name: 'ratio'
       }],
