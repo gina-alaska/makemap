@@ -12,7 +12,7 @@ Ext.application({
 
   appFolder: 'makemap',
 
-  views: ['map','controls','pixelsize'],
+  views: ['map','controls'],
   controllers: ['Map','Controls','Makemap'],
   
   launch: function() {

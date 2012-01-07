@@ -31,7 +31,6 @@ Ext.define("MM.view.Controls",{
     this.layersStore = Ext.create( 'Ext.data.Store', {
       fields: ['text', 'layer']
     });
-    
     var form = Ext.create( "Ext.form.Panel", {
       fieldDefaults: {
         anchor: '100%'
@@ -75,7 +74,7 @@ Ext.define("MM.view.Controls",{
         xtype: 'textfield',
         fieldLabel: "Image Name",
         name: 'name',
-        value: 'makemap',
+        value: this.default_filename(),
         regex: /^\w+$/,
         regexText: "Name must be one or more of a letter, number or _",
         allowBlank: false
@@ -118,6 +117,14 @@ Ext.define("MM.view.Controls",{
 
   updateInfo: function(data) {
     this.info.update(this.data_tpl.apply(data));
+  },
+
+  pad: function(n){return n<10 ? '0'+n : n},
+
+  default_filename: function() {
+    Today = new Date();
+
+    return "MM" + Today.getUTCFullYear() + this.pad(Today.getUTCMonth() + 1) + this.pad(Today.getUTCDay())
   }
 
 });
