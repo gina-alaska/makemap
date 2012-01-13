@@ -2,13 +2,13 @@ Ext.define('MM.view.Map', {
   extend: 'Ext.OpenLayers.Basic',
   alias: "widget.map",
   bodyStyle: "background: black",
-  layers:  ['bdl_3338', 'osm_base_3338'],
-  
+
   initComponent: function() {
     this.addEvents("aoiadd");
 
-    this.layers= ['bdl_3338','topo_3338', 'osm_base_3338']//,'bathy_3338'];
-//'charts', 'shaded_relief', 'landsat_pan',
+    this.layers = [ 'TILE.EPSG:3338.BDL', 'TILE.EPSG:3338.TOPO']
+                    //'TILE.EPSG:3338.CHARTS', 'TILE.EPSG:3338.SHADED_RELIEF' ];
+    
     var aoiButton = {
       xtype: "button",
       itemId: "aoi",

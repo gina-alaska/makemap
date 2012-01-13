@@ -37,15 +37,16 @@ Ext.define('MM.controller.Makemap', {
   },
 
   getBaseLayer: function(map) {
-    var layer;
-    var wms;
-    Ext.each(map.layers, function(item) {
+    var wms, wmsId;
+    var index = Ext.each(map.layers, function(item) {
       if( !item.displayInLayerSwitcher) { return; }
       if( item.getVisibility() && item.isBaseLayer ) {
-        wms = [item.options.wmsUrl, item.options.wmsName];
+        return false;
       }
-    });
-    return wms;
+    }, this);
+    console.log(index, map.layers[index]);
+    wms = Gina.Layers.get( map.layers[index].options.wmsId, true);
+    return [wms.url, wms.wmsOptions.layers];
   },
 
   getActiveLayers: function(map) {
