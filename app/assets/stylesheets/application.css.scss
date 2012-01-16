@@ -13,6 +13,12 @@ $inactive-tool-bg: #FFF;
 $inactive-tool-border-color: white;
 $mouse-bg: #FFF;
 
+$gina-dark: #4d4d4d;
+$gina-highlight: #edb329;
+$gina-light: #FFF;
+$base-color: $gina-dark;
+$panel-body-background-color: $gina-dark;
+
 .olControlPanel {
   right: 20px;
   top: 0;
@@ -61,4 +67,24 @@ $mouse-bg: #FFF;
 
 .geoPan {
   background: url('/assets/geo/pan.png') center no-repeat;
+}
+
+.header {
+  font-size: 42px;
+  text-align: right;
+  color: $gina-dark;
+  padding: 5px;
+  .capital {
+    color: $gina-highlight;
+  }
+}
+
+.poweredBy {
+  background: $gina-dark;
+  color: $gina-light;
+  font-size: 14px;
+  font-weight: bold;
+  a {
+    color: $gina-highlight;
+  }
 }

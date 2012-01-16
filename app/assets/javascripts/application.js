@@ -22,19 +22,29 @@ Ext.application({
       layout: 'border',
       items: [{
         xtype: 'panel',
-        height: 100,
-        region: 'north'
+        height: 50,
+        region: 'north',
+        html: "<span class='capital'>M</span>ake<span class='capital'>M</span>ap",
+        bodyCls: "header",
+        border: false
       },{
         region: 'center',
         xtype: 'panel',
         layout: 'fit',
-        itemId: 'content'
+        itemId: 'content',
+        border: false
       },{
         xtype: 'mapcontrols',
         width: 300,
         split: true,
         region: "east",
         id: "sidebar"
+      },{
+        xtype: 'panel',
+        height: 20,
+        region: 'south',
+        html: "Powered by <a href='http://www.gina.alaska.edu'>GINA</a>",
+        bodyCls: "poweredBy"
       }]
     });
   }
