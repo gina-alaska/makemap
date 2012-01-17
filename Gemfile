@@ -5,7 +5,7 @@ gem 'rails', '3.1.1'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+#gem 'sqlite3'
 gem 'haml'
 gem 'compass', '~> 0.12.alpha.2'
 gem 'capistrano'
