@@ -20,9 +20,8 @@ Getting it running
     # cd into it
     $ git submodule init
     $ git submodule update
-    $ rake tmp:create
-    # be running in development mode if using passenger
     $ bundle install # install dependancies
+    $ rake tmp:create
     $ rackup         # launch it
 
 License
