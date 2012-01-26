@@ -28,7 +28,7 @@ Ext.define('MM.controller.Makemap', {
     var values = form.getValues();
 
     Ext.apply(values,  {
-      'image[baseLayer][]': this.getBaseLayer(map),
+      'image[baselayer][]': this.getBaseLayer(map),
       "image[bbox]":bbox[0].x+","+bbox[0].y+","+bbox[2].x+","+bbox[2].y
     });
 
