@@ -26,15 +26,17 @@ Ext.define('MM.controller.Makemap', {
     var bbox = geom.getVertices();
     var layers = this.getActiveLayers(map);
     var values = form.getValues();
-
+    var baselayer = this.getBaseLayer(map);
+    console.log(baselayer[1]);
     Ext.apply(values,  {
-      'image[baselayer][]': this.getBaseLayer(map),
+      'image[wms]': baselayer[0],
+      'image[baselayer]': baselayer[1],
       "image[bbox]":bbox[0].x+","+bbox[0].y+","+bbox[2].x+","+bbox[2].y
     });
 
 /*    window.open("/makemap?"+Ext.Object.toQueryString(values)); */
-
-    form.submit({
+    console.log(values);
+   form.submit({
       method: "POST",
       url: "/makemap",
       params: values

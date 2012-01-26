@@ -43,7 +43,7 @@ Ext.define("MM.view.Controls",{
         xtype: 'combobox',
         fieldLabel: 'Layer',
         inputId: 'baselayer',
-        name: 'image[baselayer]',
+        name: 'baselayer',
         store: this.layersStore,
         queryMode: 'local',
         displayField: 'text',
