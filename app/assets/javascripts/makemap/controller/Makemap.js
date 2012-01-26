@@ -33,10 +33,12 @@ Ext.define('MM.controller.Makemap', {
     });
 
 /*    window.open("/makemap?"+Ext.Object.toQueryString(values)); */
+
     form.submit({
-                 method: "POST",
-                 url: "/makemap"
-               });
+      method: "POST",
+      url: "/makemap",
+      params: values
+    });
   },
 
   getBaseLayer: function(map) {
