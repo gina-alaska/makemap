@@ -11,17 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120125195009) do
+ActiveRecord::Schema.define(:version => 20120126213330) do
 
   create_table "map_saves", :force => true do |t|
     t.text     "name"
-    t.text     "imageformat"
-    t.integer  "imagewidth"
-    t.integer  "imageheight"
-    t.text     "bounds"
+    t.text     "format"
+    t.integer  "width"
+    t.integer  "height"
+    t.text     "bbox"
     t.integer  "zoomlevel"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "baselayer"
+    t.text     "overlays"
+    t.text     "wms"
   end
 
 end
