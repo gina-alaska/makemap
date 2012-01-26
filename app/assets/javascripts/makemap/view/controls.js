@@ -42,7 +42,7 @@ Ext.define("MM.view.Controls",{
       items: [{
         xtype: 'combobox',
         fieldLabel: 'Layer',
-        name: 'baselayer',
+        name: 'image[baselayer]',
         store: this.layersStore,
         queryMode: 'local',
         displayField: 'text',
@@ -52,17 +52,17 @@ Ext.define("MM.view.Controls",{
         minValue: 200,
         maxValue: 10000,
         fieldLabel: "Image Width",
-        name: 'imagewidth'
+        name: 'image[width]'
       },{
         xtype: 'numberfield',
         minValue: 200,
         maxValue: 10000,
         fieldLabel: "Image Height",
-        name: 'imageheight'
+        name: 'image[height]'
       },{
         xtype: 'combobox',
         fieldLabel: 'Image Format',
-        name: 'imageformat',
+        name: 'image[format]',
         store: imageFormats,
         queryMode: 'local',
         displayField: 'imagetype',
@@ -73,7 +73,7 @@ Ext.define("MM.view.Controls",{
       },{
         xtype: 'textfield',
         fieldLabel: "Image Name",
-        name: 'name',
+        name: 'image[name]',
         value: this.default_filename(),
         regex: /^\w+$/,
         regexText: "Name must be one or more of a letter, number or _",

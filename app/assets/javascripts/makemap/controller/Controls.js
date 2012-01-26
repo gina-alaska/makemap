@@ -16,7 +16,7 @@ Ext.define('MM.controller.Controls', {
       "mapcontrols > form > field": {
         blur: this.updateFields
       },
-      "mapcontrols > form > field[name='baselayer']": {
+      "mapcontrols > form > field[name='image[baselayer]']": {
         change: {
           fn: this.changeBaseLayer,
           buffer: 500
@@ -44,16 +44,16 @@ Ext.define('MM.controller.Controls', {
     var values = {};
 
     switch( field.name ) {
-      case 'imagewidth':
+      case 'image[width]':
         var imageheight = Math.round(field.value / fields.ratio);
         Ext.apply( values, {
-          imageheight: imageheight
+          'image[height]': imageheight
         });
         break;
-      case 'imageheight':
+      case 'image[height]':
         var imagewidth = Math.round(field.value * fields.ratio);
         Ext.apply( values, {
-          imagewidth: imagewidth
+          'image[width]': imagewidth
         });
         break;
     }
@@ -102,8 +102,8 @@ Ext.define('MM.controller.Controls', {
     }
 
     panel.getForm().setValues({
-      imagewidth: Math.round( width ),
-      imageheight: Math.round( height ),
+      'image[width]': Math.round( width ),
+      'image[height]': Math.round( height ),
       ratio: ratio
     });
     this.updateInfo(geom, pixelsize);

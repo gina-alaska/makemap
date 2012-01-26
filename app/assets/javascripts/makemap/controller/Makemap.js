@@ -28,12 +28,15 @@ Ext.define('MM.controller.Makemap', {
     var values = form.getValues();
 
     Ext.apply(values,  {
-      'baseLayer[]': this.getBaseLayer(map),
-      bbox: bbox[0].x+","+bbox[0].y+","+bbox[2].x+","+bbox[2].y
+      'image[baseLayer][]': this.getBaseLayer(map),
+      "image[bbox]":bbox[0].x+","+bbox[0].y+","+bbox[2].x+","+bbox[2].y
     });
 
-    window.open("/makemap?"+Ext.Object.toQueryString(values));
-
+/*    window.open("/makemap?"+Ext.Object.toQueryString(values)); */
+    form.submit({
+                 method: "POST",
+                 url: "/makemap"
+               });
   },
 
   getBaseLayer: function(map) {
