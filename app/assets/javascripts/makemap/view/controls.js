@@ -1,35 +1,30 @@
 Ext.define("MM.view.Controls",{
   extend: "Ext.panel.Panel",
   alias: "widget.mapcontrols",
-  layout: {
-    type: 'vbox',
-    align: 'stretch'
-  },
 
   initComponent: function() {
 
     var submitButton = {
       xtype: "button",
-      itemId: "makemap",
+      itemId: "makemaps",
       scale: "large",
       text: "Make Map!",
-      layout: "hbox",
       flex: 1,
-      stretch: true,
-      formBind: true
+      stretch: true
     };
 
     var imageFormats = Ext.create( 'Ext.data.Store', {
       fields: ['imagetype','ext'],
       data: [
         { 'imagetype':'JPEG', 'ext':'jpg' },
-        { 'imagetype':'GeoTIFF', 'ext':'tiff' },
-        { 'imagetype':'GeoTIFF w/ JPEG Compression', 'ext':'tiff_jpeg' }
+        { 'imagetype':'GeoTIFF', 'ext':'tiff' }
+       // { 'imagetype':'GeoTIFF w/ JPEG Compression', 'ext':'tiff_jpeg' }
       ]
     });
     var defaultFormat = imageFormats.first();
     this.layersStore = Ext.create( 'Ext.data.Store', {
-      fields: ['text', 'layer']
+      fields: ['text', 'layer'],
+      storeId: 'Layers'
     });
     var form = Ext.create( "Ext.form.Panel", {
       fieldDefaults: {
@@ -38,11 +33,12 @@ Ext.define("MM.view.Controls",{
       bodyStyle: 'padding: 3px;',
       disabled: true,
       border: false,
-      standardSubmit: true,
+      standardSubmit: false,
       items: [{
         xtype: 'combobox',
         fieldLabel: 'Layer',
-        name: 'baselayer',
+        inputId: 'baselayer',
+        name: 'image[baselayer]',
         store: this.layersStore,
         queryMode: 'local',
         displayField: 'text',
@@ -52,17 +48,17 @@ Ext.define("MM.view.Controls",{
         minValue: 200,
         maxValue: 10000,
         fieldLabel: "Image Width",
-        name: 'imagewidth'
+        name: 'image[width]'
       },{
         xtype: 'numberfield',
         minValue: 200,
         maxValue: 10000,
         fieldLabel: "Image Height",
-        name: 'imageheight'
+        name: 'image[height]'
       },{
         xtype: 'combobox',
         fieldLabel: 'Image Format',
-        name: 'imageformat',
+        name: 'image[format]',
         store: imageFormats,
         queryMode: 'local',
         displayField: 'imagetype',
@@ -73,7 +69,7 @@ Ext.define("MM.view.Controls",{
       },{
         xtype: 'textfield',
         fieldLabel: "Image Name",
-        name: 'name',
+        name: 'image[name]',
         value: this.default_filename(),
         regex: /^\w+$/,
         regexText: "Name must be one or more of a letter, number or _",
@@ -86,7 +82,8 @@ Ext.define("MM.view.Controls",{
         xtype: "toolbar",
         dock: "bottom",
         ui: 'footer',
-        formBind: true,
+        formBind: false,
+        height: 50,
         items: [submitButton]
       }]
     });

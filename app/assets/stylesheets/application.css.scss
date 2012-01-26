@@ -88,3 +88,36 @@ $panel-body-background-color: $gina-dark;
     color: $gina-highlight;
   }
 }
+
+.savedlist {
+  font-size: 14px;
+
+  .saved_wrap {
+    position: relative;
+    display:block;
+    min-height: 32px;
+    clear: both;
+
+    .map_image {
+      float: left;
+    }
+    .name {
+      padding: 5px;
+      margin-right: 16px;
+      font-weight: bold;
+    }
+
+    .saved_thumb {
+      width: 100px;
+      height: 100px;
+    }
+
+    &.x-item-over {
+      background-color: #BBDDFF;
+    }
+
+    &.x-item-selected {
+      background-color: #AABBFF;
+    }
+  }
+}

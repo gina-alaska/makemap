@@ -16,14 +16,14 @@ Ext.define('MM.controller.Controls', {
       "mapcontrols > form > field": {
         blur: this.updateFields
       },
-      "mapcontrols > form > field[name='baselayer']": {
+      "mapcontrols field[inputId='baselayer']": {
         change: {
           fn: this.changeBaseLayer,
           buffer: 500
         }
       },
       "mapcontrols > form numberfield": {
-        change: {
+        spin: {
           fn: this.updateFields,
           buffer: 500
         }
@@ -32,6 +32,7 @@ Ext.define('MM.controller.Controls', {
   },
 
   updateFields: function( field, newValue, oldValue ) {
+    console.log("Update Fields", field);
     var panel = Ext.ComponentQuery.query("mapcontrols form")[0];
     var fields = panel.getForm().getFieldValues();
     
@@ -44,31 +45,32 @@ Ext.define('MM.controller.Controls', {
     var values = {};
 
     switch( field.name ) {
-      case 'imagewidth':
+      case 'image[width]':
         var imageheight = Math.round(field.value / fields.ratio);
         Ext.apply( values, {
-          imageheight: imageheight
+          'image[height]': imageheight
         });
         break;
-      case 'imageheight':
+      case 'image[height]':
         var imagewidth = Math.round(field.value * fields.ratio);
         Ext.apply( values, {
-          imagewidth: imagewidth
+          'image[width]': imagewidth
         });
         break;
     }
-
+    
     panel.getForm().setValues( values );
     //Make sure we're using the update form values
-    var pixelsize = this.calcPixelSize(gWidth, panel.getForm().getValues().imagewidth);
-
+    var pixelsize = this.calcPixelSize(gWidth, panel.getForm().getValues()['image[width]']);
     this.updateInfo( geom, pixelsize );
   },
 
   changeBaseLayer: function( field, newValue, oldValue) {
-    var layer = field.getValue();
-    if( this.getMap().getMap().getLayersByName( layer )) {
-      this.getMap().getMap().setBaseLayer( layer );
+    var layer = field.rawValue;
+    var map = this.getMap().getMap();
+    console.log( field.rawValue );
+    if( map.getLayersByName( layer ) ) {
+      map.setBaseLayer( map.getLayersByName(layer)[0] );
     }
   },
 
@@ -100,10 +102,10 @@ Ext.define('MM.controller.Controls', {
       pixelsize = this.calcPixelSize( gHeight, height);
       width = this.calcImageLength( gWidth, pixelsize);
     }
-
+    
     panel.getForm().setValues({
-      imagewidth: Math.round( width ),
-      imageheight: Math.round( height ),
+      'image[width]': Math.round( width ),
+      'image[height]': Math.round( height ),
       ratio: ratio
     });
     this.updateInfo(geom, pixelsize);
@@ -118,7 +120,6 @@ Ext.define('MM.controller.Controls', {
     }
     
     geom.transform( this.getMap().getMap().getProjectionObject(),  this.getMap().getMap().displayProjection);
-
     var data = {
       centerLat: geom.getCentroid().x,
       centerLon: geom.getCentroid().y,
@@ -126,7 +127,6 @@ Ext.define('MM.controller.Controls', {
       pixelsize: pixelsize,
       coords: geom.getVertices()
     };
-
     var panel = Ext.ComponentQuery.query("mapcontrols")[0];
     panel.updateInfo(data);
   }

@@ -1,0 +1,18 @@
+<div style="height: 280px;">
+  <h2>Saved Map <%= image.name %></h2>
+  <div style="float: left; padding-right: 10px;">
+    <a href="<%= image.mapimage.url %>">
+       <%= image_tag( image.mapimage.thumb.url ) %>
+    </a><br>
+    Click on thumbnail to see full image.
+  </div>
+  <table>
+    <tr><td width="100">Width</td><td><%= image.width %></td></tr>
+    <tr><td>Height</td><td><%= image.height %></td></tr>
+    <tr><td>Bounding Box</td><td><%= image.bbox %></td></tr>
+    <tr><td>Zoom Level</td><td><%= image.name %></td></tr>
+    <tr><td>Base Layer</td><td><%= image.baselayer %></td></tr>
+    <tr><td>Save Date</td><td><%= image.created_at %></td></tr>
+  </table>
+</div>
+
