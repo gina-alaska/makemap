@@ -80,7 +80,7 @@ Ext.define('MM.controller.Map', {
     this.getControls().layersStore.removeAll();
     this.getControls().layersStore.add(data.baseLayers);
     this.getControls().down('form').getForm().setValues({
-      baselayer: this.activeBaseLayer
+      'image[baselayer]': this.activeBaseLayer
     });
   },
 

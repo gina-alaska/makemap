@@ -16,7 +16,7 @@ Ext.define('MM.controller.Controls', {
       "mapcontrols > form > field": {
         blur: this.updateFields
       },
-      "mapcontrols > form > field[name='image[baselayer]']": {
+      "mapcontrols field[inputId='baselayer']": {
         change: {
           fn: this.changeBaseLayer,
           buffer: 500
@@ -28,6 +28,7 @@ Ext.define('MM.controller.Controls', {
           buffer: 500
         }
       }
+      
    })
   },
 
