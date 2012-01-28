@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120126213330) do
+ActiveRecord::Schema.define(:version => 20120127180251) do
 
   create_table "map_saves", :force => true do |t|
     t.text     "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20120126213330) do
     t.text     "baselayer"
     t.text     "overlays"
     t.text     "wms"
+    t.string   "mapimage"
   end
 
 end

@@ -15,15 +15,19 @@ class MakeMapWMS
   }
   WMS_BASE = "REQUEST=GetMap&SERVICE=WMS&STYLES=&VERSION=1.1.1&BGCOLOR=0xFFFFFF&TRANSPARENT=TRUE"
   def initialize *opts
-    opts = opts.first
-    @wms = opts[:wms] || "http://wms.alaskamapped.org/bdl"
-    @layers = opts[:baselayer] || "BestDataAvailableLayer"
-    #@layers = [opts[:baseLayer][:wmsName], opts[:layers]].flatten.compact.join(',')
-    @width = opts[:width] || 1024
-    @height = opts[:height] || 1024
-    @bbox = opts[:bbox]
-    @format = opts[:format]
-    @name = opts[:name]
+    if opts.first.is_a? MapSave
+      mapsaveconv( opts.first )
+    else
+      opts = opts.first
+      @wms = opts[:wms] || "http://wms.alaskamapped.org/bdl"
+      @layers = opts[:baselayer] || "BestDataAvailableLayer"
+      #@layers = [opts[:baseLayer][:wmsName], opts[:layers]].flatten.compact.join(',')
+      @width = opts[:width] || 1024
+      @height = opts[:height] || 1024
+      @bbox = opts[:bbox]
+      @format = opts[:format]
+      @name = opts[:name]
+    end
   end
 
   def to_s
@@ -50,4 +54,17 @@ class MakeMapWMS
   def ext
     FORMATS[@format.to_sym][:ext]
   end
+  
+  #Convert MapSave object to variables
+  def mapsaveconv( map )
+    @wms = map.wms || "http://wms.alaskamapped.org/bdl"
+    @layers = map.baselayer || "BestDataAvailableLayer"
+    #@layers = [opts[:baseLayer][:wmsName], opts[:layers]].flatten.compact.join(',')
+    @width = map.width || 1024
+    @height = map.height || 1024
+    @bbox = map.bbox
+    @format = map.format
+    @name = map.name
+  end
+
 end

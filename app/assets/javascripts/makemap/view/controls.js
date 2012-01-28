@@ -10,7 +10,7 @@ Ext.define("MM.view.Controls",{
 
     var submitButton = {
       xtype: "button",
-      itemId: "makemap",
+      itemId: "makemaps",
       scale: "large",
       text: "Make Map!",
       layout: "hbox",

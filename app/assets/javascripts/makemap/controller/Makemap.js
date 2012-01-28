@@ -11,7 +11,7 @@ Ext.define('MM.controller.Makemap', {
   init: function() {
     this.control( {
 
-      "mapcontrols > form button[itemId='makemap']": {
+      "mapcontrols > form button[itemId='makemaps']": {
         click: this.buildMapQuery
       }
       
@@ -34,11 +34,11 @@ Ext.define('MM.controller.Makemap', {
       "image[bbox]":bbox[0].x+","+bbox[0].y+","+bbox[2].x+","+bbox[2].y
     });
 
-/*    window.open("/makemap?"+Ext.Object.toQueryString(values)); */
+/*    window.open("/makemaps?"+Ext.Object.toQueryString(values)); */
     console.log(values);
    form.submit({
       method: "POST",
-      url: "/makemap",
+      url: "/makemaps",
       params: values
     });
   },

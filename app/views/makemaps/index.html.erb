@@ -1,0 +1,5 @@
+<% @maps.each do |item| %>
+  <hr>
+  <%= render :partial => "image", :locals => { :image => item } %>
+<% end %>
+<hr>
