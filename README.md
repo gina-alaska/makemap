@@ -3,7 +3,7 @@ Make Map
 
 Tool to do simple map extractions from WMS.
 
-* Developed by Scott Macfarlane and Will Fisher for the AlaskaView and
+* Developed by Scott Macfarlane, Will Fisher and Jason Grimes for the AlaskaView and
   AlaskaMapped projects.
 * Geographic Information Network of Alaska (GINA)
   * http://www.gina.alaska.edu
