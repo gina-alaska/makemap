@@ -1,3 +1,5 @@
+require 'geo_ruby'
+
 class MakeMapWMS
   FORMATS = {
     :jpg => {
@@ -34,7 +36,7 @@ class MakeMapWMS
     query = [WMS_BASE,
     "LAYERS=#{@layers}",
     "FORMAT=#{type}",
-    "BBOX=#{@bbox}",
+    "BBOX=#{bbox}",
     "SRS=EPSG:3338",
     "WIDTH=#{@width}",
     "HEIGHT=#{@height}",
@@ -54,7 +56,15 @@ class MakeMapWMS
   def ext
     FORMATS[@format.to_sym][:ext]
   end
-  
+
+  def bbox
+    bounds = GeoRuby::SimpleFeatures::Geometry.from_ewkt(@bbox).envelope
+    [ bounds.lower_corner.x,
+      bounds.lower_corner.y,
+      bounds.upper_corner.x,
+      bounds.upper_corner.y ].join ","
+  end
+
   #Convert MapSave object to variables
   def mapsaveconv( map )
     @wms = map.wms || "http://wms.alaskamapped.org/bdl"

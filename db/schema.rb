@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120127180251) do
+ActiveRecord::Schema.define(:version => 20120208182547) do
 
   create_table "map_saves", :force => true do |t|
     t.text     "name"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(:version => 20120127180251) do
     t.integer  "width"
     t.integer  "height"
     t.text     "bbox"
-    t.integer  "zoomlevel"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "baselayer"

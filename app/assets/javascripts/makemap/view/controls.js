@@ -1,10 +1,6 @@
 Ext.define("MM.view.Controls",{
   extend: "Ext.panel.Panel",
   alias: "widget.mapcontrols",
-  layout: {
-    type: 'vbox',
-    align: 'stretch'
-  },
 
   initComponent: function() {
 
@@ -13,23 +9,22 @@ Ext.define("MM.view.Controls",{
       itemId: "makemaps",
       scale: "large",
       text: "Make Map!",
-      layout: "hbox",
       flex: 1,
-      stretch: true,
-      formBind: true
+      stretch: true
     };
 
     var imageFormats = Ext.create( 'Ext.data.Store', {
       fields: ['imagetype','ext'],
       data: [
         { 'imagetype':'JPEG', 'ext':'jpg' },
-        { 'imagetype':'GeoTIFF', 'ext':'tiff' },
-        { 'imagetype':'GeoTIFF w/ JPEG Compression', 'ext':'tiff_jpeg' }
+        { 'imagetype':'GeoTIFF', 'ext':'tiff' }
+       // { 'imagetype':'GeoTIFF w/ JPEG Compression', 'ext':'tiff_jpeg' }
       ]
     });
     var defaultFormat = imageFormats.first();
     this.layersStore = Ext.create( 'Ext.data.Store', {
-      fields: ['text', 'layer']
+      fields: ['text', 'layer'],
+      storeId: 'Layers'
     });
     var form = Ext.create( "Ext.form.Panel", {
       fieldDefaults: {
@@ -38,12 +33,12 @@ Ext.define("MM.view.Controls",{
       bodyStyle: 'padding: 3px;',
       disabled: true,
       border: false,
-      standardSubmit: true,
+      standardSubmit: false,
       items: [{
         xtype: 'combobox',
         fieldLabel: 'Layer',
         inputId: 'baselayer',
-        name: 'baselayer',
+        name: 'image[baselayer]',
         store: this.layersStore,
         queryMode: 'local',
         displayField: 'text',
@@ -87,7 +82,8 @@ Ext.define("MM.view.Controls",{
         xtype: "toolbar",
         dock: "bottom",
         ui: 'footer',
-        formBind: true,
+        formBind: false,
+        height: 50,
         items: [submitButton]
       }]
     });

@@ -22,6 +22,9 @@ Ext.define('MM.controller.Map', {
         toggle: this.aoiAdd
       },
 
+      "savedlist": {
+        itemclick: this.changeAoi
+      },
 
       "map": {
         aoiadd: function( map, feature ) {
@@ -29,6 +32,7 @@ Ext.define('MM.controller.Map', {
           Ext.ComponentQuery.query("map > toolbar > button[itemId='select']")[0].toggle(true);
 
           geom.transform( map.getMap().getProjectionObject(),  map.getMap().displayProjection);
+          this.zoomToAOI( feature );
         },
         buildLayerComboBox: this.buildLayerComboBox
       }
@@ -58,30 +62,28 @@ Ext.define('MM.controller.Map', {
 
   buildLayerComboBox: function() {
     var data = { baseLayers: [], overlays: [] };
-    
+    var map = this.getMap();
+
+    this.getControls().layersStore.removeAll();
+
     Ext.each(this.getMap().getMap().layers, function(item) {
       if(!item.displayInLayerSwitcher) { return; }
 
-      if(item.isBaseLayer) {
-        if(item.getVisibility()) { this.activeBaseLayer = item; }
+      wms = Gina.Layers.get( item.options.wmsId, true);
 
-        data.baseLayers.push({
-          text: item.name,
-          layer: item
+      if(item.isBaseLayer) {
+        this.getControls().layersStore.add({
+          text: wms.name,
+          layer: wms.wmsOptions.layers
         });
-      } else {
-        data.overlays.push({
-          text: item.name,
-          layer: item
-        });
-      }
+        if(item.getVisibility()) {
+          this.activeBaseLayer = wms.name;
+          this.getControls().down('form').getForm().setValues({
+            'image[baselayer]': wms.wmsOptions.layers
+          });
+        }
+      } 
     }, this);
-    
-    this.getControls().layersStore.removeAll();
-    this.getControls().layersStore.add(data.baseLayers);
-    this.getControls().down('form').getForm().setValues({
-      'image[baselayer]': this.activeBaseLayer
-    });
   },
 
   baseMenuHandler: function( item ) {
@@ -90,6 +92,34 @@ Ext.define('MM.controller.Map', {
 
   overlayMenuHandler: function( item ) {
     item.layer.setVisibility( !item.layer.getVisibility() );
+  },
+
+  changeAoi: function( scope, record ) {
+    var form = Ext.ComponentQuery.query("mapcontrols form")[0];
+    values = {};
+    console.log(record);
+
+    //Set the values of the form
+    Ext.apply( values, {
+      'image[width]': record.data.width,
+      'image[height]': record.data.height,
+      'image[baselayer]': record.data.baselayer,
+      'image[format]': record.data.format,
+      'ratio': record.data.width / record.data.height
+    });
+
+    //Create a new aoi and draw it on the map
+    var geom = new OpenLayers.Geometry.fromWKT( record.data.bbox );
+    var aoiFeature = new OpenLayers.Feature.Vector(geom);
+
+    this.getMap().aoiLayer.addFeatures( [aoiFeature] );
+    form.getForm().setValues(values);
+    form.enable();
+    this.zoomToAOI( aoiFeature );
+  },
+
+  zoomToAOI: function( feature ) {
+    this.getMap().getMap().zoomToExtent( feature.geometry.getBounds() )
   }
 
 });

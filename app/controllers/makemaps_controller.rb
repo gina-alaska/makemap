@@ -12,19 +12,19 @@ class MakemapsController < ApplicationController
   def create
     mapsave = MapSave.new params["image"]
     map = MakeMapWMS.new params["image"]
-
     # Cache in carrierwave
     mapsave.mapimage.download! map.to_s
-
     #logger.info params.inspect
     if mapsave.save!
-      redirect_to map.to_s, :status => 302
+      respond_to do |format|
+        format.js {render :json => {"success" => true}}
+      end
     end
   end
 
   def index
     @maps = MapSave.all
-    logger.info @maps.inspect
+
     respond_to do |format|
       format.html
       format.json { render :json => @maps }

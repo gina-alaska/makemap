@@ -11,7 +11,7 @@ Ext.define('MM.controller.Makemap', {
   init: function() {
     this.control( {
 
-      "mapcontrols > form button[itemId='makemaps']": {
+      "mapcontrols button[itemId='makemaps']": {
         click: this.buildMapQuery
       }
       
@@ -23,24 +23,28 @@ Ext.define('MM.controller.Makemap', {
     var map = this.getMap().getMap();
     var aoi = map.getLayersByName("aoi")[0].features[0];
     var geom = aoi.geometry.clone();
-    var bbox = geom.getVertices();
     var layers = this.getActiveLayers(map);
     var values = form.getValues();
     var baselayer = this.getBaseLayer(map);
-    console.log(baselayer[1]);
+
     Ext.apply(values,  {
       'image[wms]': baselayer[0],
-      'image[baselayer]': baselayer[1],
-      "image[bbox]":bbox[0].x+","+bbox[0].y+","+bbox[2].x+","+bbox[2].y
+     // 'image[baselayer]': baselayer[1],
+      'image[bbox]': geom.toString()
     });
-
-/*    window.open("/makemaps?"+Ext.Object.toQueryString(values)); */
-    console.log(values);
-   form.submit({
+    console.log(form.getValues());
+    
+    form.submit({
       method: "POST",
       url: "/makemaps",
-      params: values
+      params: values,
+      success: function() {
+        Ext.data.StoreMgr.lookup("SavedMaps").load();
+      }
     });
+
+
+    return false;
   },
 
   getBaseLayer: function(map) {
@@ -51,7 +55,6 @@ Ext.define('MM.controller.Makemap', {
         return false;
       }
     }, this);
-    console.log(index, map.layers[index]);
     wms = Gina.Layers.get( map.layers[index].options.wmsId, true);
     return [wms.url, wms.wmsOptions.layers];
   },
