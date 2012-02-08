@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyText
+  imageformat: MyText
+  imagewidth: 1
+  imageheight: 1
+  bounds: MyText
+  zoomlevel: 1
+
+two:
+  name: MyText
+  imageformat: MyText
+  imagewidth: 1
+  imageheight: 1
+  bounds: MyText
+  zoomlevel: 1

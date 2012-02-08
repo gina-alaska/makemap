@@ -14,8 +14,9 @@ Ext.application({
 
   appFolder: 'makemap',
 
-  views: ['map','controls'],
+  views: ['map','controls','savedlist'],
   controllers: ['Map','Controls','Makemap'],
+  stores: ['SavedMaps'],
   
   launch: function() {
     Ext.create('Ext.container.Viewport', {
@@ -34,11 +35,29 @@ Ext.application({
         itemId: 'content',
         border: false
       },{
-        xtype: 'mapcontrols',
+        xtype: 'panel',
         width: 300,
-        split: true,
-        region: "east",
-        id: "sidebar"
+        layout: {
+          type: 'vbox',
+          align: 'stretch'
+        },
+        region: 'east',
+        items: [{
+          xtype: 'mapcontrols',
+          split: true,
+          id: "sidebar"
+        },{
+          xtype: 'panel',
+          id: 'savedlist',
+          layout: 'fit',
+          title: 'Saved Maps',
+          items: [{
+            xtype: 'savedlist',
+            store: this.getStore("SavedMaps")
+          }],
+
+          flex: 1
+        }]
       },{
         xtype: 'panel',
         height: 20,
