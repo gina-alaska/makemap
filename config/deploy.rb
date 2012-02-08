@@ -41,7 +41,7 @@ namespace :deploy do
     run "cp #{release_path}/db/database.yml.example #{release_path}/db/database.yml"
   end
 end
-after('deploy:update_code', "deploy:precompile_assets")
 after('deploy:update_code', "deploy:copy_db_yml")
+after('deploy:update_code', "deploy:precompile_assets")
 after('deploy:update_code', "deploy:create_tmp")
 
