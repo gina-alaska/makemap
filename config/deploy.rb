@@ -15,8 +15,8 @@ set :git_enable_submodules, 1
 set :use_sudo, false
 set :user, "webdev"
 
-role :app, "makemap.x.gina.alaska.edu"#, "force.gina.alaska.edu"
-role :web, "makemap.x.gina.alaska.edu"#, "force.gina.alaska.edu"
+role :app, "makemap.x.gina.alaska.edu"
+role :web, "makemap.x.gina.alaska.edu"
 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
@@ -38,7 +38,7 @@ namespace :deploy do
   end
 
   task :copy_db_yml do
-    run "cp #{release_path}/db/database.yml.example #{release_path}/db/database.yml"
+    run "cp #{release_path}/config/database.yml.example #{release_path}/config/database.yml"
   end
 end
 after('deploy:update_code', "deploy:copy_db_yml")
