@@ -53,13 +53,12 @@ class MapimageUploader < CarrierWave::Uploader::Base
       wmimage = ::Magick::Image.read(
           "public/watermark/gina_logo_with_border.png" )
       copyimg = ::Magick::Draw.new
-      copyimg.opacity( 0.5 )
       copytext = ["imagery (c) respective holders"]
       copytext.push "http://alaskamapped.org/bdl"
 
       manipulate! do |img|
-        img = img.watermark( wmimage[0], 0.75, 1.0, ::Magick::SouthWestGravity,
-           20, 20 )
+        img = img.dissolve( wmimage[0], 0.5, 0.5, ::Magick::SouthWestGravity,
+            20, 20 )
         img = img.annotate( copyimg, 0, 0, 18, 18, copytext.join("\n") ) do
           self.font_family = 'Helvetica'
           self.fill = 'black'
