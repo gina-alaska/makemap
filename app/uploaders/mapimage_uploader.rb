@@ -28,11 +28,12 @@ class MapimageUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
-  #process :brandImage
+  process :brandImage
 
   # Create different versions of your uploaded files:
   version :thumb do
     process :resize_to_fill => [200, 200]
+    process :quality => 85
     convert :jpg
   end
 
@@ -49,8 +50,24 @@ class MapimageUploader < CarrierWave::Uploader::Base
   # end
 
   def brandImage
+      wmimage = ::Magick::Image.read(
+          "public/watermark/gina_logo_with_border.png" ).first
+      cwvar = "public/watermark/#{model.baselayer.gsub(/\W/, "_")}_watermark.png"
+      if File.exists?( cwvar )
+        cwimg = ::Magick::Image.read( cwvar ).first
+      else
+        cwimg = ::Magick::Image.read("public/watermark/no_watermark.png" ).first
+      end
 
-    
+      manipulate! do |img|
+        img = img.dissolve( wmimage, 0.3, 0.3, ::Magick::SouthWestGravity,
+            20, 20 )
+        img = img.dissolve( cwimg, 0.3, 0.3, ::Magick::SouthEastGravity,
+            20, 20 )
+      end
+
+      wmimage.destroy!
+      cwimg.destroy! if cwimg
   end
 
 end
