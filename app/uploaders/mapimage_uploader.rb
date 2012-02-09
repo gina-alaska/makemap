@@ -28,11 +28,12 @@ class MapimageUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
-  #process :brandImage
+  process :brandImage
 
   # Create different versions of your uploaded files:
   version :thumb do
     process :resize_to_fill => [200, 200]
+    process :quality => 85
     convert :jpg
   end
 
@@ -49,8 +50,36 @@ class MapimageUploader < CarrierWave::Uploader::Base
   # end
 
   def brandImage
+      wmimage = ::Magick::Image.read(
+          "public/watermark/gina_logo_with_border.png" )
+      copyimg = ::Magick::Draw.new
+      copyimg.opacity( 0.5 )
+      copytext = ["imagery (c) respective holders"]
+      copytext.push "http://alaskamapped.org/bdl"
 
-    
+      manipulate! do |img|
+        img = img.watermark( wmimage[0], 0.75, 1.0, ::Magick::SouthWestGravity,
+           20, 20 )
+        img = img.annotate( copyimg, 0, 0, 18, 18, copytext.join("\n") ) do
+          self.font_family = 'Helvetica'
+          self.fill = 'black'
+          self.stroke = 'transparent'
+          self.pointsize = 16
+          self.font_weight = ::Magick::BoldWeight
+          self.gravity = ::Magick::SouthEastGravity
+        end
+        img = img.annotate( copyimg, 0, 0, 20, 20, copytext.join("\n") ) do
+          self.font_family = 'Helvetica'
+          self.fill = 'white'
+          self.stroke = 'transparent'
+          self.pointsize = 16
+          self.font_weight = ::Magick::BoldWeight
+          self.gravity = ::Magick::SouthEastGravity
+        end
+      end
+
+#      copyimg.destroy!
+      wmimage[0].destroy!
   end
 
 end
