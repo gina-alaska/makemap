@@ -55,11 +55,12 @@ class MapimageUploader < CarrierWave::Uploader::Base
       copyimg = ::Magick::Draw.new
       copytext = ["imagery (c) respective holders"]
       copytext.push "http://alaskamapped.org/bdl"
+      copystr = copytext.join( "\n" )
 
       manipulate! do |img|
         img = img.dissolve( wmimage[0], 0.5, 0.5, ::Magick::SouthWestGravity,
             20, 20 )
-        img = img.annotate( copyimg, 0, 0, 18, 18, copytext.join("\n") ) do
+        img = img.annotate( copyimg, 0, 0, 18, 18, copystr ) do
           self.font_family = 'Helvetica'
           self.fill = 'black'
           self.stroke = 'transparent'
@@ -67,7 +68,7 @@ class MapimageUploader < CarrierWave::Uploader::Base
           self.font_weight = ::Magick::BoldWeight
           self.gravity = ::Magick::SouthEastGravity
         end
-        img = img.annotate( copyimg, 0, 0, 20, 20, copytext.join("\n") ) do
+        img = img.annotate( copyimg, 0, 0, 20, 20, copystr ) do
           self.font_family = 'Helvetica'
           self.fill = 'white'
           self.stroke = 'transparent'
