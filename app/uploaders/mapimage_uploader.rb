@@ -51,35 +51,23 @@ class MapimageUploader < CarrierWave::Uploader::Base
 
   def brandImage
       wmimage = ::Magick::Image.read(
-          "public/watermark/gina_logo_with_border.png" )
-      copyimg = ::Magick::Draw.new
-      copytext = ["imagery (c) respective holders"]
-      copytext.push "http://alaskamapped.org/bdl"
-      copystr = copytext.join( "\n" )
-
-      manipulate! do |img|
-        img = img.dissolve( wmimage[0], 0.5, 0.5, ::Magick::SouthWestGravity,
-            20, 20 )
-        img = img.annotate( copyimg, 0, 0, 18, 18, copystr ) do
-          self.font_family = 'Helvetica'
-          self.fill = 'black'
-          self.stroke = 'transparent'
-          self.pointsize = 16
-          self.font_weight = ::Magick::BoldWeight
-          self.gravity = ::Magick::SouthEastGravity
-        end
-        img = img.annotate( copyimg, 0, 0, 20, 20, copystr ) do
-          self.font_family = 'Helvetica'
-          self.fill = 'white'
-          self.stroke = 'transparent'
-          self.pointsize = 16
-          self.font_weight = ::Magick::BoldWeight
-          self.gravity = ::Magick::SouthEastGravity
-        end
+          "public/watermark/gina_logo_with_border.png" ).first
+      cwvar = "public/watermark/#{model.baselayer.gsub(/\W/, "_")}_watermark.png"
+      if File.exists?( cwvar )
+        cwimg = ::Magick::Image.read( cwvar ).first
+      else
+        cwimg = ::Magick::Image.read("public/watermark/no_watermark.png" ).first
       end
 
-#      copyimg.destroy!
-      wmimage[0].destroy!
+      manipulate! do |img|
+        img = img.dissolve( wmimage, 0.3, 0.3, ::Magick::SouthWestGravity,
+            20, 20 )
+        img = img.dissolve( cwimg, 0.3, 0.3, ::Magick::SouthEastGravity,
+            20, 20 )
+      end
+
+      wmimage.destroy!
+      cwimg.destroy! if cwimg
   end
 
 end
