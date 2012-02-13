@@ -17,7 +17,7 @@ class MakemapsController < ApplicationController
     #logger.info params.inspect
     if mapsave.save!
       respond_to do |format|
-        format.js {render :json => {"success" => true}}
+        format.js {render :json => {"success" => mapsave } }
       end
     end
   end

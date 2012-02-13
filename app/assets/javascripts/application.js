@@ -48,7 +48,7 @@ Ext.application({
           id: "sidebar"
         },{
           xtype: 'panel',
-          id: 'savedlist',
+          itemId: 'savedlist',
           layout: 'fit',
           title: 'Saved Maps',
           items: [{

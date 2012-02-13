@@ -21,7 +21,8 @@ class MapSave < ActiveRecord::Base
       :width => width,
       :height => height,
       :imageUrl => self.mapimage.url,
-      :thumbUrl => self.mapimage.url(:thumb)
+      :thumbUrl => self.mapimage.url(:thumb),
+      :created_at => self.created_at
     } 
   end
   

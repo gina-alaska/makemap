@@ -6,6 +6,9 @@ Ext.define('MM.controller.Makemap', {
   },{
     ref: 'controls',
     selector: 'mapcontrols'
+  },{
+    ref: 'maplist',
+    selector: 'savedlist'
   }],
 
   init: function() {
@@ -37,9 +40,8 @@ Ext.define('MM.controller.Makemap', {
       url: "/makemaps",
       params: values,
       waitMsg: "Please wait while your map is generated",
-      success: function(form, action) {
-        Ext.data.StoreMgr.lookup("SavedMaps").load();
-      }
+      success: this.updateStore,
+      scope: this
     });
 
 
@@ -69,6 +71,14 @@ Ext.define('MM.controller.Makemap', {
       }
     }, this);
     return layers;
+  },
+
+  updateStore: function(form, action) {
+    var store = Ext.data.StoreMgr.lookup("SavedMaps");
+    var result = action.result;
+    var item = store.add(result.success)[0];
+    store.sort();
+    Ext.fly(this.getMaplist().getNode(item)).highlight("edb329",{ duration: 2000 });
   }
 
 });

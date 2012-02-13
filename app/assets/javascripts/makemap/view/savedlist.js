@@ -8,8 +8,10 @@ Ext.define("MM.view.savedlist",{
     '<tpl for=".">',
       '<div class="saved_wrap" id="savedMap_{id}">',
         '<div class="map_image"><img src={thumbUrl} class="saved_thumb"></div>',
-        '<div class="name">{name}</div>',
-        '<div class="link"><a href="{imageUrl}">Full size</a></div>',
+        '<div class="map_info">',
+          '<div class="name">{name}</div>',
+          '<div class="link"><a href="{imageUrl}">Full size</a></div>',
+        '</div>',
       '</div>',
     '</tpl>'
   ),

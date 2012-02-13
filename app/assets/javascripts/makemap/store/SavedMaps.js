@@ -8,5 +8,9 @@ Ext.define('MM.store.SavedMaps', {
     timeout: 120000,
     reader: { type: 'json', totalProperty: 'total', root: 'maps' }
   },
-  autoLoad: true
+  autoLoad: true,
+  sorters: [{
+    direction: 'DESC',
+    property: 'created_at'
+  }]
 });
