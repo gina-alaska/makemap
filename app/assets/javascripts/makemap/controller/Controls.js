@@ -27,12 +27,14 @@ Ext.define('MM.controller.Controls', {
           fn: this.updateFields,
           buffer: 500
         }
+      },
+      "savedlist": {
+         itemclick: this.handleSavedListClick
       }
    })
   },
 
   updateFields: function( field, newValue, oldValue ) {
-    console.log("Update Fields", field);
     var panel = Ext.ComponentQuery.query("mapcontrols form")[0];
     var fields = panel.getForm().getFieldValues();
     
@@ -68,7 +70,6 @@ Ext.define('MM.controller.Controls', {
   changeBaseLayer: function( field, newValue, oldValue) {
     var layer = field.rawValue;
     var map = this.getMap().getMap();
-    console.log( field.rawValue );
     if( map.getLayersByName( layer ) ) {
       map.setBaseLayer( map.getLayersByName(layer)[0] );
     }
@@ -129,6 +130,28 @@ Ext.define('MM.controller.Controls', {
     };
     var panel = Ext.ComponentQuery.query("mapcontrols")[0];
     panel.updateInfo(data);
+  },
+
+  handleSavedListClick: function( scope, record ) {
+    var form = Ext.ComponentQuery.query("mapcontrols form")[0];
+    values = {};
+
+    //Set the values of the form
+    Ext.apply( values, {
+      'image[width]': record.data.width,
+      'image[height]': record.data.height,
+      'image[baselayer]': record.data.baselayer,
+      'image[format]': record.data.format,
+      'ratio': record.data.width / record.data.height
+    });
+
+
+    form.getForm().setValues(values);
+    form.enable();
+    var geom =  new OpenLayers.Geometry.fromWKT( record.data.bbox );
+    var pixelsize = this.calcPixelSize( geom.getBounds().getWidth(), record.data.width);
+
+    this.updateInfo( geom, pixelsize);
   }
 });
 

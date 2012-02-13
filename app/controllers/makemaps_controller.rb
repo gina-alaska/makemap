@@ -23,7 +23,7 @@ class MakemapsController < ApplicationController
   end
 
   def index
-    @maps = MapSave.all
+    @maps = MapSave.order("created_at DESC")
 
     respond_to do |format|
       format.html

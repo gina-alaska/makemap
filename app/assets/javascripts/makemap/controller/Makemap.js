@@ -29,16 +29,15 @@ Ext.define('MM.controller.Makemap', {
 
     Ext.apply(values,  {
       'image[wms]': baselayer[0],
-     // 'image[baselayer]': baselayer[1],
       'image[bbox]': geom.toString()
     });
-    console.log(form.getValues());
     
     form.submit({
       method: "POST",
       url: "/makemaps",
       params: values,
-      success: function() {
+      waitMsg: "Please wait while your map is generated",
+      success: function(form, action) {
         Ext.data.StoreMgr.lookup("SavedMaps").load();
       }
     });

@@ -95,26 +95,11 @@ Ext.define('MM.controller.Map', {
   },
 
   changeAoi: function( scope, record ) {
-    var form = Ext.ComponentQuery.query("mapcontrols form")[0];
-    values = {};
-    console.log(record);
-
-    //Set the values of the form
-    Ext.apply( values, {
-      'image[width]': record.data.width,
-      'image[height]': record.data.height,
-      'image[baselayer]': record.data.baselayer,
-      'image[format]': record.data.format,
-      'ratio': record.data.width / record.data.height
-    });
-
     //Create a new aoi and draw it on the map
     var geom = new OpenLayers.Geometry.fromWKT( record.data.bbox );
     var aoiFeature = new OpenLayers.Feature.Vector(geom);
 
     this.getMap().aoiLayer.addFeatures( [aoiFeature] );
-    form.getForm().setValues(values);
-    form.enable();
     this.zoomToAOI( aoiFeature );
   },
 
