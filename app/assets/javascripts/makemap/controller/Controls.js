@@ -29,10 +29,7 @@ Ext.define('MM.controller.Controls', {
         }
       },
       "panel[itemId='savedlist']": {
-        itemclick: this.handleSavedListClick,
-        added: function() {
-          console.log("Added Item: ",arguments);
-        }
+        itemclick: this.handleSavedListClick
       }
    })
   },

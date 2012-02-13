@@ -23,9 +23,8 @@ Ext.application({
       layout: 'border',
       items: [{
         xtype: 'panel',
-        height: 50,
         region: 'north',
-        html: "<span class='capital'>M</span>ake<span class='capital'>M</span>ap",
+        contentEl: 'header',
         bodyCls: "header",
         border: false
       },{

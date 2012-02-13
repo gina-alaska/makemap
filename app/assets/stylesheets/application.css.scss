@@ -69,15 +69,35 @@ $panel-body-background-color: $gina-dark;
   background: url('/assets/geo/pan.png') center no-repeat;
 }
 
-.header {
+#header {
   font-size: 42px;
-  text-align: right;
+  height: 60px;
   color: $gina-dark;
+  font-weight: bold;
   padding: 5px;
   .capital {
-    color: $gina-highlight;
+     color: $gina-highlight;
+  }
+  .menu_links li {
+    display: inline;
+    &:not(:first-child):before{content: " | ";}
+  }
+  .menu_links {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.4em;
+  }
+  a {
+    text-decoration: none;
+    color: $gina-dark;
+    &:hover {
+      color: $gina-highlight;
+    }
   }
 }
+
+
 
 .poweredBy {
   background: $gina-dark;
@@ -85,6 +105,7 @@ $panel-body-background-color: $gina-dark;
   font-size: 14px;
   font-weight: bold;
   a {
+    text-decoration: none;
     color: $gina-highlight;
   }
 }
