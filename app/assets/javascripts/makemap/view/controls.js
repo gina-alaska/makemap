@@ -71,8 +71,8 @@ Ext.define("MM.view.Controls",{
         fieldLabel: "Image Name",
         name: 'image[name]',
         value: this.default_filename(),
-        regex: /^\w+$/,
-        regexText: "Name must be one or more of a letter, number or _",
+        regex: /^\w+([\.\-]?\w+)*$/,
+        regexText: "Not a valid name",
         allowBlank: false
       },{
         xtype: 'hiddenfield',
