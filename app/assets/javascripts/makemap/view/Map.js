@@ -6,7 +6,7 @@ Ext.define('MM.view.Map', {
   initComponent: function() {
     this.addEvents("aoiadd");
 
-    this.layers = [ 'TILE.EPSG:3338.BDL', 'TILE.EPSG:3338.TOPO']
+    this.layers = [ 'TILE.EPSG:3338.BDL', 'TILE.EPSG:3338.TOPO'];
                     //'TILE.EPSG:3338.CHARTS', 'TILE.EPSG:3338.SHADED_RELIEF' ];
     
     var aoiButton = {

@@ -1,6 +1,5 @@
 //= require_self
-//= require ./gina-map-layers/gina.js
-//= require ./gina-map-layers/builders/openlayers.js
+//= require ./gina-map-layers/gina-openlayers.js
 //= require ./openlayers/Basic.js
 //= require_tree ./makemap/model
 //= require_tree ./makemap/store
