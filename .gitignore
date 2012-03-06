@@ -8,3 +8,4 @@ config/database.yml
 Capfile
 public/uploads/
 *.swp
+.redcar
