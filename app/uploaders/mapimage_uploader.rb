@@ -28,7 +28,7 @@ class MapimageUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
-  process :brandImage
+  process :brandImage, :if => :jpg?
 
   # Create different versions of your uploaded files:
   version :thumb do
@@ -69,5 +69,9 @@ class MapimageUploader < CarrierWave::Uploader::Base
       wmimage.destroy!
       cwimg.destroy! if cwimg
   end
-
+  
+protected
+  def jpg? new_image
+    new_image.content_type.include?("jpeg")
+  end
 end
