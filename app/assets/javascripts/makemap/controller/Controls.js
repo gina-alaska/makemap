@@ -158,6 +158,8 @@ Ext.define('MM.controller.Controls', {
     this.updateInfo( geom, pixelsize);
     if (e.target.className == "redo" ) {
       form.enable();
+    } else {
+      form.disable();
     }
   }
 });
