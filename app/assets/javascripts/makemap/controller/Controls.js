@@ -12,6 +12,11 @@ Ext.define('MM.controller.Controls', {
       "map": {
         aoiadd: this.updateWizard
       },
+      "mapcontrols form": {
+        afterrender: function(form) {
+          form.getEl().mask("Please select a new AOI to make a map");
+        }
+      },
 
       "mapcontrols > form > field": {
         blur: this.updateFields
@@ -157,10 +162,11 @@ Ext.define('MM.controller.Controls', {
   
     this.updateInfo( geom, pixelsize);
     if (e.target.className == "redo" ) {
-      form.enable();
+      form.getEl().unmask();
     } else {
-      form.disable();
+      form.getEl().mask("Please select a new AOI to make a map");
     }
   }
+  
 });
 

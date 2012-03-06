@@ -31,7 +31,6 @@ Ext.define("MM.view.Controls",{
         anchor: '100%'
       },
       bodyStyle: 'padding: 3px;',
-      disabled: true,
       border: false,
       standardSubmit: false,
       items: [{
@@ -93,7 +92,6 @@ Ext.define("MM.view.Controls",{
       border: false,
       flex: 1
     });
-
     this.items = [form,this.info];
 
     this.callParent(arguments);
