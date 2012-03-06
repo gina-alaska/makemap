@@ -37,11 +37,12 @@ namespace :deploy do
     run "cd #{release_path}; bundle exec rake tmp:create"
   end
 
-  task :copy_db_yml do
-    run "cp #{release_path}/config/database.yml.example #{release_path}/config/database.yml"
+  task :configure_db do
+    run "cd #{release_path}; ln -s shared/db/database.yml current/config/database.yml"
+    run "cd #{release_path}; ln -s shared/db/production.sqlite3 current/db/production.sqlite3"
   end
 end
-after('deploy:update_code', "deploy:copy_db_yml")
+after('deploy:update_code', "deploy:configure_db")
 after('deploy:update_code', "deploy:precompile_assets")
 after('deploy:update_code', "deploy:create_tmp")
 
