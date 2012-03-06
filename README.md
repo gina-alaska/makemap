@@ -23,7 +23,13 @@ Getting it running
     $ git submodule update
     $ bundle install # install dependancies
     $ rake tmp:create
-    $ rackup         # launch it
+
+    # setup the database - for simple SQLITE devel mode:
+    $ cp config/database.yml.example config/database.yml
+    $ rake db:migrate
+
+    # launch and test
+    $ rackup 
 
 License
 -------
