@@ -30,6 +30,8 @@ class MapimageUploader < CarrierWave::Uploader::Base
 
   process :brandImage, :if => :jpg?
 
+  process :brandGeotiff, :if => :geotiff?
+
   # Create different versions of your uploaded files:
   version :thumb do
     process :resize_to_fill => [200, 200]
@@ -69,9 +71,20 @@ class MapimageUploader < CarrierWave::Uploader::Base
       wmimage.destroy!
       cwimg.destroy! if cwimg
   end
-  
+ 
+  def brandGeotiff
+    # capture geotags
+    # burn logos
+    # burn geotags back on
+    # remove alpha channel?
+  end
+ 
 protected
   def jpg? new_image
     new_image.content_type.include?("jpeg")
+  end
+
+  def geotiff? new_image
+    new_image.content_type.include?("geotiff")
   end
 end
