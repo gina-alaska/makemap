@@ -21,7 +21,7 @@ Ext.define("MM.view.Controls",{
        // { 'imagetype':'GeoTIFF w/ JPEG Compression', 'ext':'tiff_jpeg' }
       ]
     });
-    var defaultFormat = imageFormats.first();
+    var defaultFormat = imageFormats.last();
     this.layersStore = Ext.create( 'Ext.data.Store', {
       fields: ['text', 'layer'],
       storeId: 'Layers'
@@ -121,7 +121,7 @@ Ext.define("MM.view.Controls",{
   default_filename: function() {
     Today = new Date();
 
-    return "MM" + Today.getUTCFullYear() + this.pad(Today.getUTCMonth() + 1) + this.pad(Today.getUTCDay())
+    return  "MM" + Today.getUTCFullYear() + this.pad(Today.getUTCMonth() + 1) + this.pad(Today.getUTCDay())
   }
 
 });

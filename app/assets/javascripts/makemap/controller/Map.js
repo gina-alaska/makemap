@@ -68,7 +68,7 @@ Ext.define('MM.controller.Map', {
 
     Ext.each(this.getMap().getMap().layers, function(item) {
       if(!item.displayInLayerSwitcher) { return; }
-
+      if(!item.options.wmsId) {return;}
       wms = Gina.Layers.get( item.options.wmsId, true);
 
       if(item.isBaseLayer) {
