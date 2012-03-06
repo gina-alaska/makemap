@@ -28,9 +28,11 @@ Ext.define('MM.controller.Controls', {
           buffer: 500
         }
       },
-      "panel[itemId='savedlist']": {
+      "savedlist": {
         itemclick: this.handleSavedListClick
+
       }
+  
    })
   },
 
@@ -132,10 +134,9 @@ Ext.define('MM.controller.Controls', {
     panel.updateInfo(data);
   },
 
-  handleSavedListClick: function( scope, record ) {
+  handleSavedListClick: function( scope, record, item, idx, e, opts ) {
     var form = Ext.ComponentQuery.query("mapcontrols form")[0];
     values = {};
-
     //Set the values of the form
     Ext.apply( values, {
       'image[width]': record.data.width,
@@ -145,13 +146,19 @@ Ext.define('MM.controller.Controls', {
       'ratio': record.data.width / record.data.height
     });
 
+    console.log(item);
+    console.log(e);
+    console.log(idx);
 
     form.getForm().setValues(values);
-    form.enable();
+
     var geom =  new OpenLayers.Geometry.fromWKT( record.data.bbox );
     var pixelsize = this.calcPixelSize( geom.getBounds().getWidth(), record.data.width);
-
+  
     this.updateInfo( geom, pixelsize);
+    if (e.target.className == "redo" ) {
+      form.enable();
+    }
   }
 });
 
