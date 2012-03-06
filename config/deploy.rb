@@ -38,8 +38,8 @@ namespace :deploy do
   end
 
   task :configure_db do
-    run "cd #{deploy_to}; ln -s ../shared/db/database.yml config/database.yml"
-    run "cd #{deploy_to}; ln -s ../shared/db/production.sqlite3 db/production.sqlite3"
+    run "cd #{deploy_to}; ln -s shared/db/database.yml #{release_path}/config/database.yml"
+    run "cd #{deploy_to}; ln -s shared/db/production.sqlite3 #{release_path}/db/production.sqlite3"
   end
 end
 after('deploy:update_code', "deploy:configure_db")
