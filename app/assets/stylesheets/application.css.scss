@@ -109,6 +109,20 @@ $panel-body-background-color: $gina-dark;
   }
 }
 
+.saved_map {
+  .map_image {
+    display: inline-block;
+  }
+  .metadata {
+    vertical-align: top;
+    display: inline-block;
+    .wms {
+      word-wrap: break-word;
+      word-break: break-all;
+    }
+  }
+}
+
 .savedlist {
   font-size: 14px;
 

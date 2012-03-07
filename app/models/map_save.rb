@@ -22,8 +22,11 @@ class MapSave < ActiveRecord::Base
       :height => height,
       :imageUrl => self.mapimage.url,
       :thumbUrl => self.mapimage.url(:thumb),
-      :created_at => self.created_at
+      :created_at => self.created_at,
+      :filesize => self.mapimage.file.size / (1024*1024).to_f
     } 
   end
+  
+
   
 end

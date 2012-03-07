@@ -1,0 +1,2 @@
+module MapsaveHelper
+end

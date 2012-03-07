@@ -38,11 +38,16 @@ namespace :deploy do
   end
 
   task :configure_db do
-    run "cd #{deploy_to}; ln -s shared/db/database.yml #{release_path}/config/database.yml"
-    run "cd #{deploy_to}; ln -s shared/db/production.sqlite3 #{release_path}/db/production.sqlite3"
+    run "cd #{deploy_to}; cp shared/db/database.yml #{release_path}/config/database.yml"
+    run "cd #{deploy_to}; ln -s #{deploy_to}/shared/db/production.sqlite3 #{release_path}/db/production.sqlite3"
+  end
+  
+  task :link_uploads do
+    run "cd #{deploy_to}; ln -s shared/uploads #{release_path}/public/uploads"    
   end
 end
 after('deploy:update_code', "deploy:configure_db")
 after('deploy:update_code', "deploy:precompile_assets")
 after('deploy:update_code', "deploy:create_tmp")
+after('deploy:update_code', "deploy:link_uploads")
 

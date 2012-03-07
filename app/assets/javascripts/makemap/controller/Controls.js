@@ -34,8 +34,13 @@ Ext.define('MM.controller.Controls', {
         }
       },
       "savedlist": {
-        itemclick: this.handleSavedListClick
-
+        itemclick: this.handleSavedListClick,
+        itemdblclick: function(view, record) {
+          var win = Ext.create("MM.view.map_metadata", {
+            record: record
+          });
+          win.show();
+        }
       }
   
    })
@@ -163,7 +168,12 @@ Ext.define('MM.controller.Controls', {
     this.updateInfo( geom, pixelsize);
     if (e.target.className == "redo" ) {
       form.getEl().unmask();
-    } else {
+    } else if( e.target.className == "info" ) {
+      var win = Ext.create("MM.view.map_metadata", {
+        record: record
+      });
+      win.show();
+    }else {
       form.getEl().mask("Please select a new AOI to make a map");
     }
   }
