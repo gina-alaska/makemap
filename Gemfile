@@ -7,7 +7,7 @@ gem 'rails', '3.2.2'
 
 gem 'sqlite3'
 gem 'haml'
-gem 'compass', '~> 0.12.alpha.2'
+gem 'compass', '= 0.12.alpha.4'
 gem 'capistrano'
 
 gem 'nofxx-georuby', :require => 'geo_ruby'
