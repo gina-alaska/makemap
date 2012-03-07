@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(:version => 20120208182547) do
     t.integer  "width"
     t.integer  "height"
     t.text     "bbox"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "foo"
     t.text     "baselayer"
     t.text     "overlays"
     t.text     "wms"
