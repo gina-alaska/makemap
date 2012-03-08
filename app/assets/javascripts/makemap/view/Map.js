@@ -41,7 +41,6 @@ Ext.define('MM.view.Map', {
 
   onMapReady: function( ) {
     Ext.each(this.getMap().layers, function(item) {
-      console.log(item);
       if( item.name != "OpenStreetMap") { return };
       item.setVisibility(true);
     }, this);

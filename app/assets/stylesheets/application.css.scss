@@ -16,6 +16,7 @@ $mouse-bg: #FFF;
 $gina-dark: #4d4d4d;
 $gina-highlight: #edb329;
 $gina-light: #FFF;
+$beta-red: #c20000;
 $base-color: $gina-dark;
 $panel-body-background-color: $gina-dark;
 
@@ -76,6 +77,16 @@ $panel-body-background-color: $gina-dark;
   padding: 5px;
   .capital {
      color: $gina-highlight;
+  }
+  .beta {
+    color: $beta-red;
+    font-size: .55em;
+    display: inline-block;    
+    position: absolute;
+    top: 18px;
+    left: 150px;
+    @include rotate( 315deg );
+    @include single-text-shadow( #000, 2px, 2px, 5px);
   }
   .menu_links li {
     display: inline;
