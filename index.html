@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Makemap by gina-alaska</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Makemap</h1>
+        <p>Web tool to quickly make a map</p>
+        <p class="view"><a href="https://github.com/gina-alaska/makemap">View the Project on GitHub <small>gina-alaska/makemap</small></a></p>
+        <ul>
+          <li><a href="https://github.com/gina-alaska/makemap/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/gina-alaska/makemap/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/gina-alaska/makemap">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Make Map</h1>
+
+<p>Tool to do simple map extractions from WMS.</p>
+
+<h3>Authors and Contributors</h3>
+
+<ul>
+<li>Developed by Scott Macfarlane (<a href="https://github.com/cheeseblok" class="user-mention">@cheeseblok</a>) , Will Fisher (<a href="https://github.com/teknofire" class="user-mention">@teknofire</a>) and Jason Grimes (<a href="https://github.com/grimm" class="user-mention">@grimm</a>) </li>
+<li>Developed for the AlaskaView and AlaskaMapped projects by GINA</li>
+<li>Geographic Information Network of Alaska (GINA)
+
+<ul>
+<li><a href="http://www.gina.alaska.edu">http://www.gina.alaska.edu</a></li>
+<li><a href="http://www.alaskamapped.org">http://www.alaskamapped.org</a></li>
+<li><a href="http://www.americaview.org">http://www.americaview.org</a></li>
+</ul>
+</li>
+</ul><h2>Description</h2>
+
+<p>OpenLayers based map tool that lets you draw a box on a map, pick extraction size, and name of extraction, and which WMS layer to extract from - boom you got a geotiff.</p>
+
+<h2>Getting it running</h2>
+
+<pre><code>$ git clone # 
+# cd into it
+$ git submodule init
+$ git submodule update
+$ bundle install # install dependancies
+$ rake tmp:create
+
+# setup the database - for simple SQLITE devel mode:
+$ cp config/database.yml.example config/database.yml
+$ rake db:migrate
+
+# launch and test
+$ rackup 
+</code></pre>
+
+<h2>License</h2>
+
+<p>See LICENSE file for licensing and credits.  Think BSD/MIT.</p>
+
+<h2>Support or Contact</h2>
+
+<p>Just ping any of the developers at GINA for assistance.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/gina-alaska">gina-alaska</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
