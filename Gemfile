@@ -7,9 +7,8 @@ gem 'rails', '3.2.2'
 
 gem 'sqlite3'
 gem 'haml'
-gem 'compass', '~> 0.12.rc.1'
 gem 'capistrano'
-
+gem 'bootstrap-sass'
 gem 'nofxx-georuby', :require => 'geo_ruby'
 
 # Gems used only for assets and not required
@@ -18,7 +17,6 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
-  gem 'compass-rails'
 end
 
 gem 'jquery-rails'

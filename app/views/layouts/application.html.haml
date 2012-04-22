@@ -1,12 +1,9 @@
 %html
   %head
     %title MakeMAP
-    = include_css(:extjs, :version => '4.0.7')
-    = include_js(:extjs, :version => '4.0.7')
     = include_js(:openlayers)
     = include_js(:proj4js)
     = javascript_include_tag "application"
     = stylesheet_link_tag "application"
   %body
-    = render 'layouts/header'
     = yield
