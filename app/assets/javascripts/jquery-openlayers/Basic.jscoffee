@@ -1,0 +1,7 @@
+# Class to make working with openlayers in JQuery a little easier
+# Based on ExtJS-Openlayers by William Fisher: http://github.com/gina-alaska/extjs-openlayers
+
+class OpenLayers
+  constructor: (options) =>
+    @options =
+      

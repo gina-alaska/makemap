@@ -1,8 +1,16 @@
 GIT
-  remote: git://github.com/jnicklas/carrierwave.git
-  revision: 789a8b952764a21e3ff837a628d8c15558cc7ad1
+  remote: git://github.com/fschwahn/mini_magick.git
+  revision: d3d3f51159370c6227bb264e61fbab2e8e07d293
+  branch: refactor_identify_errors
   specs:
-    carrierwave (0.6.0.beta)
+    mini_magick (3.4)
+      subexec (~> 0.2.1)
+
+GIT
+  remote: git://github.com/jnicklas/carrierwave.git
+  revision: 9793c7178fc3dcf2680739c80c2ffd06173d553e
+  specs:
+    carrierwave (0.6.2)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
 
@@ -38,54 +46,52 @@ GEM
       multi_json (~> 1.0)
     ansi (1.4.2)
     arel (3.0.2)
+    bootstrap-sass (2.0.3.1)
     builder (3.0.0)
-    capistrano (2.11.2)
+    capistrano (2.12.0)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
-    chunky_png (1.2.5)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.2.0)
-    compass (0.12.rc.1)
-      chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.1)
-    compass-rails (1.0.0.rc.3)
-      compass (~> 0.12.rc.0)
+    coffee-script-source (1.3.3)
     erubis (2.7.0)
-    execjs (1.3.0)
+    execjs (1.4.0)
       multi_json (~> 1.0)
-    fssm (0.2.8.1)
-    haml (3.1.4)
-    highline (1.6.11)
+    haml (3.1.6)
+    highline (1.6.12)
     hike (1.2.1)
     i18n (0.6.0)
     journey (1.0.3)
-    jquery-rails (2.0.1)
+    jquery-rails (2.0.2)
       railties (>= 3.2.0, < 5.0)
       thor (~> 0.14)
-    json (1.6.5)
-    mail (2.4.3)
+    json (1.7.3)
+    kaminari (0.13.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
+    mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.17.2)
-    multi_json (1.1.0)
+    mime-types (1.18)
+    multi_json (1.3.6)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
-    net-ssh (2.3.0)
+    net-ssh (2.5.2)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     nofxx-georuby (1.9.2)
+    nokogiri (1.5.3)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -112,26 +118,26 @@ GEM
     rake (0.9.2.2)
     rdoc (3.12)
       json (~> 1.4)
-    rmagick (2.13.1)
-    sass (3.1.15)
-    sass-rails (3.2.4)
+    sass (3.1.19)
+    sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    sprockets (2.1.2)
+    sprockets (2.1.3)
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sqlite3 (1.3.5)
+    sqlite3 (1.3.6)
+    subexec (0.2.2)
     thor (0.14.6)
     tilt (1.3.3)
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    turn (0.9.3)
+    turn (0.9.5)
       ansi
-    tzinfo (0.3.32)
-    uglifier (1.2.3)
+    tzinfo (0.3.33)
+    uglifier (1.2.4)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
 
@@ -139,16 +145,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-sass
   capistrano
   carrierwave!
   coffee-rails (~> 3.2.1)
-  compass (~> 0.12.rc.1)
-  compass-rails
   haml
   jquery-rails
+  kaminari
+  mini_magick!
   nofxx-georuby
+  nokogiri
   rails (= 3.2.2)
-  rmagick
   sass-rails (~> 3.2.3)
   sqlite3
   turn

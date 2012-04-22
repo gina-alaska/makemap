@@ -1,68 +1,24 @@
+//= require jquery
+//= require jquery_ujs
 //= require_self
-//= require ./gina-map-layers/gina-openlayers.js
-//= require ./openlayers/Basic.js
-//= require_tree ./makemap/model
-//= require_tree ./makemap/store
-//= require_tree ./makemap/view
-//= require_tree ./makemap/controller
+//= require ./gina-map-layers/debug/gina-openlayers.js
+//= require bootstrap
+//= require ./jq-openlayers
+//= require ./makemap
 
+var makemap;
 
-
-Ext.application({
-  name: 'MM',
-
-  appFolder: 'makemap',
-
-  views: ['map','controls','savedlist'],
-  controllers: ['Map','Controls','Makemap'],
-  stores: ['SavedMaps'],
+$(document).ready(function() { 
+  makemap = new MakeMap('#new_map');
   
-  launch: function() {
-    Ext.create('Ext.container.Viewport', {
-      layout: 'border',
-      items: [{
-        xtype: 'panel',
-        region: 'north',
-        contentEl: 'header',
-        bodyCls: "header",
-        border: false
-      },{
-        region: 'center',
-        xtype: 'panel',
-        layout: 'fit',
-        itemId: 'content',
-        border: false
-      },{
-        xtype: 'panel',
-        width: 300,
-        layout: {
-          type: 'vbox',
-          align: 'stretch'
-        },
-        region: 'east',
-        items: [{
-          xtype: 'mapcontrols',
-          split: true,
-          id: "sidebar"
-        },{
-          xtype: 'panel',
-          itemId: 'savedlist',
-          layout: 'fit',
-          title: 'Saved Maps',
-          items: [{
-            xtype: 'savedlist',
-            store: this.getStore("SavedMaps")
-          }],
-
-          flex: 1
-        }]
-      },{
-        xtype: 'panel',
-        height: 20,
-        region: 'south',
-        html: "Powered by <a href='http://www.gina.alaska.edu'>GINA</a>",
-        bodyCls: "poweredBy"
-      }]
-    });
-  }
+  $("#options").click(function() {
+    $("#map-form").modal('toggle');
+  });  
+  $(".modal-close").click(function() {
+    if($(this).hasClass("disabled")) {
+      return false;
+    }
+    $(this).parents(".modal").modal('hide');
+  })
 });
+

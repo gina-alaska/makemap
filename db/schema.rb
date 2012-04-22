@@ -11,21 +11,41 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120208182547) do
+ActiveRecord::Schema.define(:version => 20120606014857) do
 
-  create_table "map_saves", :force => true do |t|
+  create_table "layers", :force => true do |t|
+    t.integer  "wms_id"
+    t.string   "name"
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
+    t.string   "title"
+    t.string   "abstract"
+    t.string   "attribution", :default => "imagery (c) respective holders"
+  end
+
+  create_table "layers_maps", :id => false, :force => true do |t|
+    t.integer "layer_id"
+    t.integer "map_id"
+  end
+
+  add_index "layers_maps", ["layer_id", "map_id"], :name => "index_layers_maps_on_layer_id_and_map_id"
+
+  create_table "maps", :force => true do |t|
     t.text     "name"
-    t.text     "format"
     t.integer  "width"
     t.integer  "height"
     t.text     "bbox"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "foo"
-    t.text     "baselayer"
-    t.text     "overlays"
-    t.text     "wms"
     t.string   "mapimage"
+    t.integer  "layer_id"
+  end
+
+  create_table "wms", :force => true do |t|
+    t.string   "hostname"
+    t.string   "shortname"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

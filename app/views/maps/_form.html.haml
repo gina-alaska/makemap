@@ -1,0 +1,26 @@
+=form_for @map, html: { class: 'form-horizontal', 'data-preview' => preview_maps_url } do |f|
+  %fieldset
+    =f.hidden_field :bbox, :id => 'map-bbox'
+    =f.hidden_field :width, :id => 'map-width'
+    =f.hidden_field :height, :id => 'map-height'
+    .control-group
+      =f.label :name, "Name", class: 'control-label'
+      .controls
+        =f.text_field :name, id: 'map-name', placeholder: 'MM2012'
+    .control-group
+      =label_tag :size, "Size", class: 'control-label'
+      .controls
+        =text_field_tag :size, nil, id: 'map-size', placeholder: '1000'
+        %p.help_block
+          This will the the size of the longer edge of your map.
+          Value must be between 200 and 10000
+    .control-group
+      =f.label :layer_id, "Layer", class: 'control-label'
+      .controls      
+        =f.select :layer_id, option_groups_from_collection_for_select( Wms.all, :layers, :hostname, :id, :title)
+        %p.help_block
+          %h5="Abstract:"
+          -@layers.each do |layer|
+            .layer-abstract{id: "layer_#{layer.id}", class: layer == @layers.first ? "" : "hide"}
+              =layer.abstract
+          

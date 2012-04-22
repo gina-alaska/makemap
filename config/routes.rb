@@ -2,9 +2,12 @@ Makemap::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-  resources :makemaps
-  resources :mapsaves 
-  match 'mapsaves/:id/download' => 'mapsaves#download', :as => :download
+  resources :maps do 
+    collection do 
+      get 'preview'
+    end
+  end
+  match 'maps/:id/download' => 'maps#download', :as => :download
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action

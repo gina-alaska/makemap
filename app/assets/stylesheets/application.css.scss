@@ -5,7 +5,8 @@
  *= require_self
  *= require_tree . 
 */
-@import "compass/css3";
+//@import "compass/css3";
+@import "bootstrap";
 
 $active-tool-bg: #FF0;
 $active-tool-border-color: red;
@@ -19,6 +20,67 @@ $gina-light: #FFF;
 $beta-red: #c20000;
 $base-color: $gina-dark;
 $panel-body-background-color: $gina-dark;
+
+
+.navbar {
+  margin-bottom: 0px;
+}
+.input-prepend {
+  .add-on {
+    margin-right: -5px;
+  }
+  input {
+    box-sizing: content-box;
+    margin-bottom: 0px;
+  }
+  select {
+    margin-bottom: 0px;
+  }
+}
+
+html {
+  height: 100%;
+  min-height: 100%;
+}
+
+.container-fluid {
+  .without-pading {
+    padding: 0px;
+  }
+}
+
+.map-request-window {
+  .map-entry {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.map-list {
+  .map-entry {
+    display: inline-block;
+    width: 290px;
+  }
+}
+
+#map-controls {
+  position: absolute;
+  top: 40px;
+  left: 60px;
+  z-index: 1000;
+}
+#map-container {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 40px;
+  bottom: 0px;
+}
+
+.dropdown-menu {
+  z-index: 10000;
+}
 
 .olControlPanel {
   right: 20px;
@@ -63,51 +125,22 @@ $panel-body-background-color: $gina-dark;
 }
 
 .geoShapeSquare {
+  width: 14px;
+  height: 14px;
   background: url('/assets/geo/shape_square_blue.png') center no-repeat;
 }
 
 .geoPan {
+  width: 14px;
+  height: 14px;
   background: url('/assets/geo/pan.png') center no-repeat;
 }
 
-#header {
-  font-size: 42px;
-  height: 60px;
-  color: $gina-dark;
-  padding: 5px;
-  .capital {
-     color: $gina-highlight;
-  }
-  .beta {
-    color: $beta-red;
-    font-size: .55em;
-    display: inline-block;    
-    position: absolute;
-    top: 18px;
-    left: 150px;
-    @include rotate( 315deg );
-    @include single-text-shadow( #000, 2px, 2px, 5px);
-  }
-  .menu_links li {
-    display: inline;
-    &:not(:first-child):before{content: " | ";}
-  }
-  .menu_links {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 0.4em;
-  }
-  a {
-    text-decoration: none;
-    color: $gina-dark;
-    &:hover {
-      color: $gina-highlight;
-    }
-  }
+.geoClear {
+  width: 14px;
+  height: 14px;
+  background: url('/assets/geo/vector_delete.png') center no-repeat;
 }
-
-
 
 .poweredBy {
   background: $gina-dark;

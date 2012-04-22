@@ -1,0 +1,6 @@
+%ul.dropdown-menu.nav.nav-list
+  -Wms.all.each do |w|
+    %li.nav-header= w.hostname
+    -w.layers.each do |l|
+      %li
+        =link_to l.name, "#"

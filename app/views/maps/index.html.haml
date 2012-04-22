@@ -1,0 +1,20 @@
+=content_for :header_nav do
+  %li
+    =link_to "Back to Map", root_url
+  %li
+    -if params[:mine]
+      =link_to "All Maps", maps_url
+    -else
+      =link_to "My Maps", maps_url(:mine=>true)
+.container-fluid
+  = paginate @maps
+  .map-list
+    =render @maps
+    -if @maps.empty?
+      .hero-unit
+        %h1 
+          Welcome to MakeMap!
+        %p
+          You have no maps,  get started by creating one
+          =link_to "here", root_url
+  = paginate @maps
