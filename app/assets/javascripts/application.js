@@ -1,68 +1,64 @@
+//= require jquery
+//= require jquery_ujs
 //= require_self
 //= require ./gina-map-layers/gina-openlayers.js
-//= require ./openlayers/Basic.js
-//= require_tree ./makemap/model
-//= require_tree ./makemap/store
-//= require_tree ./makemap/view
-//= require_tree ./makemap/controller
+//= require bootstrap
 
-
-
-Ext.application({
-  name: 'MM',
-
-  appFolder: 'makemap',
-
-  views: ['map','controls','savedlist'],
-  controllers: ['Map','Controls','Makemap'],
-  stores: ['SavedMaps'],
+$(document).ready(function() { 
+  var map = new OpenLayers.Map("map-container");
+  var aoiLayer = new OpenLayers.Layer.Vector("aoi",{
+    displayInLayerSwitcher: false,
+    eventListeners: {
+        beforefeatureadded: removeFeatures
+    }
+  });
   
-  launch: function() {
-    Ext.create('Ext.container.Viewport', {
-      layout: 'border',
-      items: [{
-        xtype: 'panel',
-        region: 'north',
-        contentEl: 'header',
-        bodyCls: "header",
-        border: false
-      },{
-        region: 'center',
-        xtype: 'panel',
-        layout: 'fit',
-        itemId: 'content',
-        border: false
-      },{
-        xtype: 'panel',
-        width: 300,
-        layout: {
-          type: 'vbox',
-          align: 'stretch'
-        },
-        region: 'east',
-        items: [{
-          xtype: 'mapcontrols',
-          split: true,
-          id: "sidebar"
-        },{
-          xtype: 'panel',
-          itemId: 'savedlist',
-          layout: 'fit',
-          title: 'Saved Maps',
-          items: [{
-            xtype: 'savedlist',
-            store: this.getStore("SavedMaps")
-          }],
+  var aoiTool = new OpenLayers.Control.DrawFeature( aoiLayer, OpenLayers.Handler.RegularPolygon, {
+     eventListeners: {
+       featureadded: aoiAdd
+     },
+     handlerOptions: {
+      irregular: true
+     }
+   });
 
-          flex: 1
-        }]
-      },{
-        xtype: 'panel',
-        height: 20,
-        region: 'south',
-        html: "Powered by <a href='http://www.gina.alaska.edu'>GINA</a>",
-        bodyCls: "poweredBy"
-      }]
-    });
-  }
+  Gina.Layers.inject(map, 'TILE.EPSG:3338.*');
+   
+  map.zoomTo(3);        
+  map.addControls([aoiTool]);
+  $('.dropdown-menu a').click(function() {
+    console.log($(this).text());
+    $(this).parents('ul.dropdown-menu').siblings('a.dropdown-toggle').find('span').text( $(this).text() ); 
+    console.log($(this).parents('ul'));   
+  });
+  
+  $('.dropdown').click(function(event){
+    event.preventDefault();
+    input = $(this).find('a').attr('href');
+    $(this).find('a').hide()
+    console.log($(input));
+    $(this).append($(input));
+  });
+  
+  $('#map-toolbar').click(function(params) {
+    console.log(params);
+  });
+  $('#aoiTool').click(function(params) {
+    console.log(params);
+    aoiTool.activate();
+  });  
 });
+
+function aoiAdd(feature) {
+  var geom = feature.feature.geometry.clone();
+  
+  var map = feature.object.map;
+  
+  geom.transform( map.getProjectionObject(),  map.displayProjection);
+  map.addLayer(feature.feature.layer);
+  map.zoomToExtent(geom.getBounds());
+}
+
+function removeFeatures(feature) {
+  this.removeAllFeatures();  
+}

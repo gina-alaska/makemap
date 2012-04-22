@@ -1,0 +1,57 @@
+.navbar
+	.navbar-inner
+		.container
+			%a{:href=>'#', :class => "brand"}MakeMap
+			
+			%ul.nav.pull-right
+				%li
+					=link_to "Code", "http://github.com/gina-alaska/makemap"
+				%li
+					=link_to "Issues", "http://github.com/gina-alaska/makemap/issues"
+				%li
+					=link_to "Help", "#help"
+.row-fluid
+	.span10
+		#map-container
+	.span2
+		#map-toolbar.btn-toolbar
+			.btn-group{"data-toggle" => 'buttons-radio'}
+				#panTool.geoPan.btn
+				#aoiTool.geoShapeSquare.btn
+				#clearTool.geoClear.btn
+		%ul.nav.nav-tabs
+			%li.active
+				=link_to "New", "#newmap", 'data-toggle' => 'tab'
+			%li
+				=link_to "Saved", "#savedmaps", 'data-toggle' => 'tab'
+			%li
+				=link_to "Public", "#publicmaps", 'data-toggle' => 'tab'
+		.tab-content.container
+			#newmap.tab-pane.active
+				=form_for @map, :html => {:class => 'form-horizontal'} do |f|
+					.input-prepend
+						%span.span1.add-on="Name"
+						=f.text_field :name, :class => :span2, :placehoder => "MM2012"
+					.input-prepend
+						%span.span1.add-on="Width: "
+						=f.text_field :width, :style => "width:100%"
+					.input-prepend
+						%span.span1.add-on="Height: "
+						=f.text_field :height, :class => :span1
+					.input-prepend
+						%span.span1.add-on="WMS: "
+						=f.select :wms, [["BDL", "BestDataAvailableLayer"]]
+					=f.submit "Make my map", :class => "btn btn-warning"
+				%pre
+					Metadata
+			#savedmaps.tab-pane
+			#publicmaps.tab-pane	
+.row-fluid
+	.span12
+		.navbar
+			.navbar-inner
+				.container
+					.nav.pull-left
+						Powered by GINA
+					.nav.pull-right
+						Built with Bootstrap

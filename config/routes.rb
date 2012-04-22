@@ -3,7 +3,7 @@ Makemap::Application.routes.draw do
   # first created -> highest priority.
 
   resources :makemaps
-  resources :mapsaves 
+  resources :map_saves
   match 'mapsaves/:id/download' => 'mapsaves#download', :as => :download
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
