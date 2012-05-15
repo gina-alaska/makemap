@@ -1,4 +1,4 @@
-class MapSave < ActiveRecord::Base
+class Map < ActiveRecord::Base
   mount_uploader :mapimage, MapimageUploader
 
   validates :width, :numericality => { :only_integer => true,

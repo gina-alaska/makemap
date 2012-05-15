@@ -1,0 +1,14 @@
+=form_for @map, :html => {:class => 'form-horizontal'} do |f|
+  .input-prepend
+    %span1.span1.add-on="Name"
+    =f.text_field :name, :placehoder => "MM2012", :class => :span2
+  .input-prepend
+    %span.add-on="Width: "
+    =f.text_field :width, :id => 'map-width'
+  .input-prepend
+    %span.add-on="Height: "
+    =f.text_field :height, :id => 'map-height'
+  .input-prepend
+    %span.add-on="WMS: "
+    =f.select :wms, [["BDL", "BestDataAvailableLayer"]]
+  =f.submit "Make my map", :class => "btn btn-warning"

@@ -11,9 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120208182547) do
+ActiveRecord::Schema.define(:version => 20120515063524) do
 
-  create_table "map_saves", :force => true do |t|
+  create_table "maps", :force => true do |t|
     t.text     "name"
     t.text     "format"
     t.integer  "width"

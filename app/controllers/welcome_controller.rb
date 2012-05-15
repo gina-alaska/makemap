@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
   def index
-    @map = MapSave.new
+    @map = Map.new
   end
 end
