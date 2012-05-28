@@ -27,8 +27,22 @@ class MapsController < ApplicationController
     #end
   end
   
+  #Makes a wms request for a small image to overlay on the current map
+  def preview
+    @map = Map.new params[:map]
+#    @map.layers = [Layer.where(:name => 'GINA.Bathymetry.bw').first]
+    logger.info mapParams
+    logger.info @map.inspect
+    logger.info @map.to_wms_query_string
+    
+    respond_to do |format|
+      format.json {render :json => {success: true, cachedImage: @map.to_wms_query_string, width: @map.width, height: @map.height}}
+      #format.jpg @map.requestPreviewImage
+    end
+  end
+  
   protected
   def mapParams
-    params.slice[:map]
+    params.slice(:map)
   end
 end

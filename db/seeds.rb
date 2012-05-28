@@ -5,3 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+wmss = []
+wmss << WMS.create(hostname: 'http://wms.alaskamapped.org/bdl', shortname: 'Best Data Available')
+wmss << WMS.create(hostname: 'http://wms.alaskamapped.org/extras', shortname: 'Extras')
+
+
+wmss.each do |wms|
+  wms.addLayersFromCapabilities
+end

@@ -1,31 +1,16 @@
 //= require jquery
 //= require jquery_ujs
 //= require_self
-//= require ./gina-map-layers/gina-openlayers.js
+//= require ./gina-map-layers/debug/gina-openlayers.js
 //= require bootstrap
+//= require ./jq-openlayers
+//= require ./makemap
+
+var makemap;
 
 $(document).ready(function() { 
-  var map = new OpenLayers.Map("map-container");
-  var aoiLayer = new OpenLayers.Layer.Vector("aoi",{
-    displayInLayerSwitcher: false,
-    eventListeners: {
-        beforefeatureadded: removeFeatures
-    }
-  });
-  
-  var aoiTool = new OpenLayers.Control.DrawFeature( aoiLayer, OpenLayers.Handler.RegularPolygon, {
-     eventListeners: {
-       featureadded: aoiAdd
-     },
-     handlerOptions: {
-      irregular: true
-     }
-   });
+  makemap = new MakeMap('#new_map');
 
-  Gina.Layers.inject(map, 'TILE.EPSG:3338.*');
-   
-  map.zoomTo(3);        
-  map.addControls([aoiTool]);
   $('.dropdown-menu a').click(function() {
     console.log($(this).text());
     $(this).parents('ul.dropdown-menu').siblings('a.dropdown-toggle').find('span').text( $(this).text() ); 
@@ -40,25 +25,5 @@ $(document).ready(function() {
     $(this).append($(input));
   });
   
-  $('#map-toolbar').click(function(params) {
-    console.log(params);
-  });
-  $('#aoiTool').click(function(params) {
-    console.log(params);
-    aoiTool.activate();
-  });  
 });
 
-function aoiAdd(feature) {
-  var geom = feature.feature.geometry.clone();
-  
-  var map = feature.object.map;
-  
-  geom.transform( map.getProjectionObject(),  map.displayProjection);
-  map.addLayer(feature.feature.layer);
-  map.zoomToExtent(geom.getBounds());
-}
-
-function removeFeatures(feature) {
-  this.removeAllFeatures();  
-}
