@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  wms_id: 1
+  name: MyString
+
+two:
+  wms_id: 1
+  name: MyString
