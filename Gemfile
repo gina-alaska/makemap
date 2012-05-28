@@ -38,6 +38,9 @@ group :test do
   gem 'turn', :require => false
 end
 
+#Parse xml repsonse from wms server
+gem 'nokogiri'
+
 # Carrierwave/imagemagick gems for image cache
 gem 'carrierwave', :git => "git://github.com/jnicklas/carrierwave.git"
 gem 'rmagick'
