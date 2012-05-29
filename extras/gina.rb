@@ -49,9 +49,9 @@ module GINA
       jsfiles = []
       Dir.chdir('public/javascripts') {
         jsfiles += Dir.glob('gina/*.js')
-        jsfiles += Dir.glob('google/*.js') if opts.include? :google
-        jsfiles += Dir.glob('openlayers/*.js') if opts.include? :openlayers
-        jsfiles += Dir.glob('extjs/*.js')
+#        jsfiles += Dir.glob('google/*.js') if opts.include? :google
+#        jsfiles += Dir.glob('openlayers/*.js') if opts.include? :openlayers
+#        jsfiles += Dir.glob('extjs/*.js')
         jsfiles << "#{app}.js"
         jsfiles += Dir.glob('app/**/*.js')
       }

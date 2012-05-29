@@ -34,10 +34,19 @@ class MapimageUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
-    process :resize_to_fill => [200, 200]
+    process :resize_to_fill => [260, 180]
     process :quality => 85
     convert :jpg
   end
+  
+  version :jpg do
+    convert :jpg
+  end
+  
+  version :wrl do 
+    process :createWorldFile
+  end
+  
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
@@ -50,11 +59,14 @@ class MapimageUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+  def filename
+    "#{model.name}.jpg"
+  end
 
   def brandImage
       wmimage = ::Magick::Image.read(
           "public/watermark/gina_logo_with_border.png" ).first
-      cwvar = "public/watermark/#{model.baselayer.gsub(/\W/, "_")}_watermark.png"
+      cwvar = "public/watermark/#{model.layer.name.gsub(/\W/, "_")}_watermark.png"
       if File.exists?( cwvar )
         cwimg = ::Magick::Image.read( cwvar ).first
       else
@@ -77,6 +89,10 @@ class MapimageUploader < CarrierWave::Uploader::Base
     # burn logos
     # burn geotags back on
     # remove alpha channel?
+  end
+  
+  def createWorldFile
+    
   end
  
 protected
