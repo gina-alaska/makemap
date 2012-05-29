@@ -24,6 +24,5 @@ $(document).ready(function() {
     console.log($(input));
     $(this).append($(input));
   });
-  
 });
 

@@ -15,3 +15,4 @@
       =#select_tag :wms, options_for_select( Wms.all.collect{|w| [w.hostname, w.id] })
       =f.select :layer_id, option_groups_from_collection_for_select( Wms.all, :layers, :hostname, :id, :name)
       =#f.select :wms, [["BDL", "BestDataAvailableLayer"]]
+    =f.submit "Make Map", {:class => 'btn btn-warning', :id => "makeMapBtn"}

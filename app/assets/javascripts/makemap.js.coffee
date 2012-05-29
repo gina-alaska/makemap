@@ -29,8 +29,9 @@ class @MakeMap
       @removeFeatures();
     $('#panTool').click (params) =>
       @aoiTool.deactivate(); 
-
-
+    $("#makeMapBtn").click (params) =>
+      @createMap(params);
+    
   initMap: (el) ->
     @map = $(el).OpenLayers
       units: 'm'
@@ -121,7 +122,6 @@ class @MakeMap
       
   redrawPreviewLayer: ->
     if @previewLayer and @map.getLayersByName("preview").length > 0
-      console.log(@map.getLayersByName("preview"));
       @map.removeLayer(@previewLayer);
       @getPreviewLayer();
 
@@ -141,7 +141,6 @@ class @MakeMap
       #This is a workaround because jquery doesn't clone the selected option
       # Ticket #1294
       $(form).find("#map_layer_id").val($(@form).find("#map_layer_id").prop("selectedIndex"));
-      console.log($(form).serialize());
       
       $.get "/maps/preview", $(form).serialize(), (data) =>
         @previewLayer = new OpenLayers.Layer.Image "preview", data.cachedImage, bounds, new OpenLayers.Size(width, height), 
@@ -151,4 +150,26 @@ class @MakeMap
         #Hack to make this work.  Not sure why visibility is getting disabled when the layer is added.
         @previewLayer.visibility = true
         @previewLayer.redraw();  
+        
+  createMap: (e) ->
+    e.preventDefault();
+    $("#infoBox").modal
+      backdrop: 'static'
+    
+    $.ajax $(@form).attr('action'),
+      type: 'post',
+      data: $(@form).serialize(),
+      dataType: 'json',
+      success: (data) =>
+        @updateSavedMaps(data.id);
+        $("#infoBox").modal("hide");
+      error: (jqXhr, status, error) ->
+        $("#infoBox modal-body").html error
+      complete: (jqXhr, status) ->
+        console.log( jqXhr, status);
+
+    return true
+  updateSavedMaps: (id) ->
+    return true;    
+
       
