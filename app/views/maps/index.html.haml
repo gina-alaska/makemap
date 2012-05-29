@@ -10,31 +10,29 @@
 					=link_to "Issues", "http://github.com/gina-alaska/makemap/issues"
 				%li
 					=link_to "Help", "#help"
-.container-fluid#content
-	.row-fluid
-		.span3
-			#map-toolbar.btn-toolbar
-				.btn-group{"data-toggle" => 'buttons-radio'}
-					#panTool.geoPan.btn
-					#aoiTool.geoShapeSquare.btn
-				.btn-group
-					#clearTool.geoClear.btn
-			%ul.nav.nav-tabs
-				%li.active
-					=link_to "New", "#newmap", 'data-toggle' => 'tab'
-				%li
-					=link_to "Saved", "#savedMaps", 'data-toggle' => 'tab'
-			.tab-content.container
-				#newmap.tab-pane.active
-					=render 'form'
-					%pre
-						Metadata
-				#savedMaps.tab-pane
-					%ul.thumbnails.scrollme
-						=render @maps
-		.span9
-			#map-container
-		
+#makemap
+	#control-panel
+		#map-toolbar.btn-toolbar
+			.btn-group{"data-toggle" => 'buttons-radio'}
+				#panTool.geoPan.btn
+				#aoiTool.geoShapeSquare.btn
+			.btn-group
+				#clearTool.geoClear.btn
+		%ul.nav.nav-tabs
+			%li.active
+				=link_to "New", "#newmap", 'data-toggle' => 'tab'
+			%li
+				=link_to "Saved", "#savedMaps", 'data-toggle' => 'tab'
+		.tab-content.container
+			#newmap.tab-pane.active
+				=render 'form'
+				%pre
+					Metadata
+			#savedMaps.tab-pane
+				%ul.thumbnails.scrollme
+					=render @maps
+	#map-container
+	
 
 .navbar.navbar-fixed-bottom
 	.navbar-inner
