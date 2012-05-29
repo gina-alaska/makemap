@@ -22,14 +22,15 @@ class MapsController < ApplicationController
     @map = Map.new mapParams
     
     # Cache in carrierwave
+    logger.info(@map.to_wms_query_string)
     @map.mapimage.download! @map.to_wms_query_string
     
     if @map.save
       respond_to do |format|
         if request.xhr?
-          format.json {render :json => {success: true } }
+          format.json {render :json => {success: true, id: @map.id } }
         else
-          format.json {render :json => {success: true}}  
+          format.json {render :json => {success: true, id: @map.id } } 
         end
       end
     else

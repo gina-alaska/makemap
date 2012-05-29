@@ -170,6 +170,9 @@ class @MakeMap
 
     return true
   updateSavedMaps: (id) ->
+    $.get "/maps/" + id, (data) =>
+      $("#savedMaps").prepend(data);
+
     return true;    
 
       

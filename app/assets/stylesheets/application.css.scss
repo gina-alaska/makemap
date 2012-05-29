@@ -34,6 +34,19 @@ $panel-body-background-color: $gina-dark;
   }
 }
 
+html {
+  height: 100%;
+  min-height: 100%;
+}
+#content {
+  position: absolute;
+  top: 40px;
+  bottom: 10px;
+}
+
+.row-fluid {
+  min-width: 960px;
+}
 
 .olControlPanel {
   right: 20px;
