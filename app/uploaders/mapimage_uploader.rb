@@ -28,24 +28,47 @@ class MapimageUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
-  process :brandImage, :if => :jpg?
+  #process :brandImage, :if => :jpg?
 
-  process :brandGeotiff, :if => :geotiff?
-
+  #process :brandGeotiff, :if => :geotiff?
+  
   # Create different versions of your uploaded files:
   version :thumb do
-    process :resize_to_fill => [260, 180]
+    process :resize_to_fill => [160,120]
     process :quality => 85
     convert :jpg
+    def full_filename (for_file = model.logo.file)
+      "#{model.name}_thumb.jpg"
+    end
   end
   
   version :jpg do
-    convert :jpg
+    convert :jpg   
+    def full_filename (for_file = model.logo.file)
+      "#{model.name}.jpg"
+    end
   end
   
-  version :wrl do 
+  version :world do 
     process :createWorldFile
+    def full_filename (for_file = model.logo.file)
+      "#{model.name}.jgw"
+    end
   end
+  
+   version :auxxml do
+    #process :createAuxXml
+    def full_filename (for_file = model.logo.file)
+      "#{model.name}.jpg.aux.xml"
+    end
+  end
+  
+  # version :proj do
+  #   process :createProjFile
+  #   def full_filename (for_file = model.logo.file)
+  #     "#{model.name}.prj"
+  #   end
+  # end
   
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -59,9 +82,9 @@ class MapimageUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-  def filename
-    "#{model.name}.jpg"
-  end
+  # def filename
+  #   "#{model.name}.jpg"
+  # end
 
   def brandImage
       wmimage = ::Magick::Image.read(
@@ -91,8 +114,55 @@ class MapimageUploader < CarrierWave::Uploader::Base
     # remove alpha channel?
   end
   
+  #There is a lot of redundancy here,  how to clean it up?
   def createWorldFile
+    # move upload to local cache
+    cache_stored_file! if !cached?
     
+    directory = File.dirname( current_path )
+    
+    # move upload to tmp file - encoding result will be saved to
+    # original file name
+    tmp_path   = File.join( directory, "tmpfile" )
+    tmp_out = File.join( directory, "tmpout")
+    File.rename current_path, tmp_path
+    
+    `gdal_translate -of JPEG -scale -co worldfile=yes #{tmp_path} #{current_path}`
+    
+    # because encoding video will change file extension, change it 
+    # to old one
+    fixed_name = File.basename(current_path, '.*') + ".wld"
+    File.rename File.join( directory, fixed_name ), current_path
+    
+    # delete tmp file
+    File.delete tmp_path
+  end
+  
+  def createAuxXml
+    # move upload to local cache
+    cache_stored_file! if !cached?
+    
+    directory = File.dirname( current_path )
+    
+    # move upload to tmp file - encoding result will be saved to
+    # original file name
+    tmp_path   = File.join( directory, "tmpfile" )
+    tmp_out = File.join( directory, "tmpout")
+    File.rename current_path, tmp_path
+    
+    `gdal_translate -of JPEG -scale -co worldfile=yes #{tmp_path} #{current_path}`
+    
+    # because encoding video will change file extension, change it 
+    # to old one
+    fixed_name = File.basename(current_path, '.*') + ".jpg.aux.xml"
+    File.rename File.join( directory, fixed_name ), current_path
+    
+    # delete tmp file
+    File.delete tmp_path
+  end
+  
+  def createProjFile
+      
   end
  
 protected

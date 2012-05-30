@@ -34,9 +34,12 @@ class Map < ActiveRecord::Base
   # end
   
   def to_wms_query_string opts = {}
-    logger.info opts
     #TODO:  Allow user to pick projection
-    type = "image/jpeg"
+    type = opts[:type] || "image/tiff"
+    ext = opts[:ext] || "tif"
+    logger.info(self.inspect)
+    logger.info(self.name)
+    logger.info("****************")
     query = [WMS_BASE,
       "LAYERS=#{layer.name}",
       "FORMAT=#{type}",
@@ -46,7 +49,7 @@ class Map < ActiveRecord::Base
       "HEIGHT=#{self.height}",
       "reaspect=false"].join('&')
     
-      "#{self.layer.wms.hostname}?#{query}"
+      "#{self.layer.wms.hostname}/#{self.name}.#{ext}?#{query}"
   end
   
   def wms_bounding_box
