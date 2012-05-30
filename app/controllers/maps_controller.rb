@@ -1,5 +1,5 @@
 class MapsController < ApplicationController
-  respond_to :html
+  respond_to :html, :json
   
   def index
     @map = Map.new
@@ -28,17 +28,17 @@ class MapsController < ApplicationController
     if @map.save
       respond_to do |format|
         if request.xhr?
-          format.json {render :json => {success: true, id: @map.id }, :layout => false}
+          render :json => {success: true, id: @map.id }, :layout => false
         else
-          format.json {render :json => {success: true, id: @map.id } } 
+          render :json => {success: true, id: @map.id } 
         end
       end
     else
       respond_to do |format|
         if request.xhr?
-          format.json {render :json => {success: false, errors: @map.errors}, layout => false}
+          render :json => {success: false, errors: @map.errors}, layout => false
         else
-          format.json {render :json => {success: false, errors: @map.errors}}
+          render :json => {success: false, errors: @map.errors}
         end
       end
     end
