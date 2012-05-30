@@ -26,20 +26,17 @@ class MapsController < ApplicationController
     @map.mapimage.download! @map.to_wms_query_string
     
     if @map.save
-      respond_to do |format|
-        if request.xhr?
-          render :json => {success: true, id: @map.id }, :layout => false
-        else
-          render :json => {success: true, id: @map.id } 
-        end
+      if request.xhr?
+        logger.info("XHR!")
+        render :json => {success: true, id: @map.id }, :layout => false, :status => :accepted
+      else
+        render :json => {success: true, id: @map.id }, :status => :accepted
       end
     else
-      respond_to do |format|
-        if request.xhr?
-          render :json => {success: false, errors: @map.errors}, layout => false
-        else
-          render :json => {success: false, errors: @map.errors}
-        end
+      if request.xhr?
+        render :json => {success: false, errors: @map.errors}, layout => false
+      else
+        render :json => {success: false, errors: @map.errors}
       end
     end
   end
@@ -49,10 +46,8 @@ class MapsController < ApplicationController
     @map = Map.new mapParams
     @map.name = "preview"
     image = @map.to_wms_query_string(type: 'image/jpeg', ext: '.jpg')
-    respond_to do |format|
-      format.json {render :json => {success: true, cachedImage: image, width: @map.width, height: @map.height}}
-      #format.jpg @map.requestPreviewImage
-    end
+    
+    render :json => {success: true, cachedImage: image, width: @map.width, height: @map.height}
   end
   
   protected
