@@ -171,7 +171,7 @@ class @MakeMap
     return true
   updateSavedMaps: (id) ->
     $.get "/maps/" + id, (data) =>
-      $("#savedMaps .scrollme").prepend(data);
+      $("#savedMaps").prepend(data);
 
     return true;    
 
