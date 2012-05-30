@@ -3,7 +3,7 @@ class MapsController < ApplicationController
   
   def index
     @map = Map.new
-    @maps = Map.all
+    @maps = Map.order("id DESC")
   end
   
   def show
@@ -28,7 +28,7 @@ class MapsController < ApplicationController
     if @map.save
       respond_to do |format|
         if request.xhr?
-          format.json {render :json => {success: true, id: @map.id } }
+          format.json {render :json => {success: true, id: @map.id }, :layout => false}
         else
           format.json {render :json => {success: true, id: @map.id } } 
         end
@@ -36,7 +36,7 @@ class MapsController < ApplicationController
     else
       respond_to do |format|
         if request.xhr?
-          format.json {render :json => {success: false, errors: @map.errors}}
+          format.json {render :json => {success: false, errors: @map.errors}, layout => false}
         else
           format.json {render :json => {success: false, errors: @map.errors}}
         end
@@ -47,9 +47,10 @@ class MapsController < ApplicationController
   #Makes a wms request for a small image to overlay on the current map
   def preview
     @map = Map.new mapParams
-
+    @map.name = "preview"
+    image = @map.to_wms_query_string(type: 'image/jpeg', ext: '.jpg')
     respond_to do |format|
-      format.json {render :json => {success: true, cachedImage: @map.to_wms_query_string, width: @map.width, height: @map.height}}
+      format.json {render :json => {success: true, cachedImage: image, width: @map.width, height: @map.height}}
       #format.jpg @map.requestPreviewImage
     end
   end
