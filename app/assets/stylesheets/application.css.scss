@@ -31,6 +31,10 @@ $panel-body-background-color: $gina-dark;
   }
   input {
     box-sizing: content-box;
+    margin-bottom: 0px;
+  }
+  select {
+    margin-bottom: 0px;
   }
 }
 
@@ -44,7 +48,7 @@ html {
   bottom: 18px;
   width: 100%;
   #control-panel {
-    width: 270px;
+    width: 280px;
     display: inline-block;
     overflow-y: scroll;
     height: 100%;
@@ -53,7 +57,7 @@ html {
   #map-container {
     display: inline-block;
     position: absolute;
-    left: 280px;
+    left: 300px;
     right: 0px;
     top: 0px;
     bottom: 0px;
