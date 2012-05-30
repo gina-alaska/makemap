@@ -1,5 +1,5 @@
 #map-controls
-  =form_for @map do |f|
+  =form_for @map, html: { class: 'form-vertical'} do |f|
     =f.hidden_field :bbox, :id => 'map-bbox'
     .input-prepend
       %span.add-on="Name"
