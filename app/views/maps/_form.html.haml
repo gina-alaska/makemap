@@ -1,9 +1,9 @@
 #map-controls
-  =form_for @map, :html => {:class => 'form-horizontal'} do |f|
+  =form_for @map do |f|
     =f.hidden_field :bbox, :id => 'map-bbox'
     .input-prepend
-      %span1.span1.add-on="Name"
-      =f.text_field :name, :placehoder => "MM2012", :class => :span2
+      %span.add-on="Name"
+      =f.text_field :name, :placehoder => "MM2012"
     .input-prepend
       %span.add-on="Width: "
       =f.text_field :width, :id => 'map-width'

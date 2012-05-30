@@ -44,15 +44,16 @@ html {
   bottom: 18px;
   width: 100%;
   #control-panel {
-    width: 260px;
+    width: 270px;
     display: inline-block;
     overflow-y: scroll;
     height: 100%;
+    padding: 10px;
   }
   #map-container {
     display: inline-block;
     position: absolute;
-    left: 260px;
+    left: 280px;
     right: 0px;
     top: 0px;
     bottom: 0px;
