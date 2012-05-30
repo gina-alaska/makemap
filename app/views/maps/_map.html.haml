@@ -1,6 +1,15 @@
-%li
-  .thumbnail
-    =image_tag map.mapimage.thumb.url
-    %h5=map.name
-    %p
-      Map Metadata
+.thumbnail.well
+  =image_tag map.mapimage.thumb.url
+  %h5=map.name
+  %p
+    Download:
+    %ul.unstyled
+      %li
+        =link_to "GeoTiff", map.mapimage.url
+      %li
+        =link_to "JPEG", map.mapimage.url(:jpg)
+      %li
+        =link_to "World File", map.mapimage.url(:world)
+      %li
+        =link_to "Aux XML", map.mapimage.url(:auxxml)
+        =#link_to "Proj File", map.mapimage.url(:proj)
