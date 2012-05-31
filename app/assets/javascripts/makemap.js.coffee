@@ -173,16 +173,17 @@ class @MakeMap
       dataType: 'json',
       success: (data) =>
         $("#infoBox").modal("hide");
+        @updateSavedMaps(data.id);
       error: (jqXhr, status, error) ->
-        $("#infoBox modal-body").html error
-      complete: (jqXhr, status) ->
-        $("#infoBox").modal("hide");
-
+        $("#infoBox .modal-body").html error;
+        
     return true
   updateSavedMaps: (id) ->
     $.get "/maps/" + id, (data) =>
-      $("#savedMaps").prepend(data);
-
+      $("#show-map .modal-body").html data;
+      $("#show-map").modal
+        backdrop: 'static'
+      return true;
     return true;    
 
       

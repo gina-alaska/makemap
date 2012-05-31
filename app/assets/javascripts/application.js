@@ -13,9 +13,9 @@ $(document).ready(function() {
   
   $("#options").click(function() {
     $("#map-form").modal('toggle');
-  });
-  $("#form-close").click(function() {
-    $("#map-form").modal('hide');
-  });
+  });  
+  $(".modal-close").click(function() {
+    $(this).parents(".modal").modal('hide');
+  })
 });
 
