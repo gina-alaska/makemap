@@ -149,8 +149,9 @@ class @MakeMap
       $(form).find("#map-height").val(height);
       #This is a workaround because jquery doesn't clone the selected option
       # Ticket #1294
-      $(form).find("#map_layer_id").val($(@form).find("#map_layer_id").prop("selectedIndex"));
-      
+      layer_id = $(@form).find("#map_layer_id").prop("selectedIndex");
+      $(form).find("#map_layer_id").prop("selectedIndex", layer_id);
+
       $.get "/maps/preview", $(form).serialize(), (data) =>
         @previewLayer = new OpenLayers.Layer.Image "preview", data.cachedImage, bounds, new OpenLayers.Size(width, height), 
           visibility: true
@@ -179,10 +180,11 @@ class @MakeMap
         
     return true
   updateSavedMaps: (id) ->
+    $("#show-map .modal-body").html("Retrieving Your Map");
+    $("#show-map").modal
+      backdrop: 'static'
     $.get "/maps/" + id, (data) =>
       $("#show-map .modal-body").html data;
-      $("#show-map").modal
-        backdrop: 'static'
       return true;
     return true;    
 
