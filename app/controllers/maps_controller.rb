@@ -9,7 +9,11 @@ class MapsController < ApplicationController
   def show
     @map = Map.where(:id => params[:id]).first
     
-    respond_with @map
+    if request.xhr?
+      respond_with @map, :layout => false
+    else
+      respond_with @map
+    end
   end
   
   def download
