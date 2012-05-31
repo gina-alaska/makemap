@@ -34,7 +34,7 @@ class MapsController < ApplicationController
       end
     else
       if request.xhr?
-        render :json => {success: false, errors: @map.errors}, layout => false
+        render :json => {success: false, errors: @map.errors}, :layout => false
       else
         render :json => {success: false, errors: @map.errors}
       end
@@ -47,7 +47,7 @@ class MapsController < ApplicationController
     @map.name = "preview"
     image = @map.to_wms_query_string(type: 'image/jpeg', ext: '.jpg')
     
-    render :json => {success: true, cachedImage: image, width: @map.width, height: @map.height}
+    render :json => {success: true, cachedImage: image, width: @map.width, height: @map.height}, :layout => false
   end
   
   protected
