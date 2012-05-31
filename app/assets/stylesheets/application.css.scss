@@ -42,26 +42,23 @@ html {
   height: 100%;
   min-height: 100%;
 }
-#makemap {
+
+.container-fluid {
+  padding: 0px;
+}
+
+#map-controls {
   position: absolute;
+  top: 60px;
+  left: 60px;
+  z-index: 1000;
+}
+#map-container {
+  position: absolute;
+  left: 0px;
+  right: 0px;
   top: 40px;
-  bottom: 18px;
-  width: 100%;
-  #control-panel {
-    width: 280px;
-    display: inline-block;
-    overflow-y: scroll;
-    height: 100%;
-    padding: 10px;
-  }
-  #map-container {
-    display: inline-block;
-    position: absolute;
-    left: 300px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
-  }
+  bottom: 0px;
 }
 
 .olControlPanel {

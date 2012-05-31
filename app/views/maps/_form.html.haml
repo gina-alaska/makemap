@@ -1,18 +1,17 @@
-#map-controls
-  =form_for @map, html: { class: 'form-vertical'} do |f|
+=form_for @map, html: { class: 'form-horizontal'} do |f|
+  %fieldset
     =f.hidden_field :bbox, :id => 'map-bbox'
-    .input-prepend
-      %span.add-on="Name"
-      =f.text_field :name, :placehoder => "MM2012"
-    .input-prepend
-      %span.add-on="Width: "
-      =f.text_field :width, :id => 'map-width'
-    .input-prepend
-      %span.add-on="Height: "
-      =f.text_field :height, :id => 'map-height'
-    .input-prepend
-      %span.add-on="Layer: "
-      =#select_tag :wms, options_for_select( Wms.all.collect{|w| [w.hostname, w.id] })
-      =f.select :layer_id, option_groups_from_collection_for_select( Wms.all, :layers, :hostname, :id, :name)
-      =#f.select :wms, [["BDL", "BestDataAvailableLayer"]]
-    =f.submit "Make Map", {:class => 'btn btn-warning', :id => "makeMapBtn"}
+    =f.hidden_field :width, :id => 'map-width'
+    =f.hidden_field :height, :id => 'map-height'
+    .control-group
+      =f.label :name, "Name", class: 'control-label'
+      .controls
+        =f.text_field :name, id: 'map-name', placeholder: 'MM2012'
+    .control-group
+      =label_tag :size, "Size", class: 'control-label'
+      .controls
+        =text_field_tag :size, nil, id: 'map-size', placeholder: '1000'
+    .control-group
+      =f.label :layer_id, "Layer", class: 'control-label'
+      .controls      
+        =f.select :layer_id, option_groups_from_collection_for_select( Wms.all, :layers, :hostname, :id, :name)

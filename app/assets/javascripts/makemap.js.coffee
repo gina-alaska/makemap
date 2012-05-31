@@ -8,6 +8,7 @@ class @MakeMap
     @name = $(@form).find("#map-name");
     @width = $(@form).find("#map-width");
     @height = $(@form).find("#map-height");
+    @size = $(@form).find("#map-size");
     @bbox = $(@form).find("#map-bbox");
     @wms = $(@form).find("#wms");
     @layers = $(@form).find("#map_layer_id")
@@ -15,10 +16,8 @@ class @MakeMap
     @ratio = 1;
     
     @initMap("#map-container");    
-    $(@width).blur =>
-      @setHeight();
-    $(@height).blur =>
-      @setWidth();
+    $(@size).blur => 
+      @setSize();
     $(@layers).change =>
       @redrawPreviewLayer();  
       
@@ -84,16 +83,26 @@ class @MakeMap
   # Set the width/height of the image based on the given bounding box
   #  Try to make the long edge as close to the value of side as possible,
   #  keeping the aspect ratio
-  setSize: (boundry, side = 1000) ->
-    gWidth = boundry.getWidth();
-    gHeight = boundry.getHeight();
+  setSize: ->
+    size = parseInt($(@size).val());
+    boundry = @aoiLayer.features[0].geometry.getBounds();
+    size = 1000 unless size;
     
-    if(gWidth > gHeight)
-      width = side
-      height = (gWidth / gHeight) * side
+    if boundry
+      gWidth = boundry.getWidth();
+      gHeight = boundry.getHeight();
+      
+      if(gWidth > gHeight)
+        width = size
+        height = (gHeight / gWidth) * size
+      else
+        height = size
+        width = (gWidth / gHeight) * size
     else
-      height = side
-      width = (gHeight / gWidth) * side
+      width = size;
+      height = size;
+      gWidth = size;
+      gHeight = size;
     
     @setWidth width
     @setHeight height
@@ -104,7 +113,7 @@ class @MakeMap
     geom.transform( @map.getProjectionObject(),  @map.displayProjection);
     @map.addLayer(feature.feature.layer);
     @map.zoomToExtent(feature.feature.geometry.getBounds());
-    @setSize(feature.feature.geometry.getBounds());
+    @setSize();
     @aoiTool.deactivate();
     $(@bbox).val(feature.feature.geometry.toString());
 
@@ -156,17 +165,18 @@ class @MakeMap
     $("#infoBox").modal
       backdrop: 'static'
     
+    $(@name).val($(@name).attr('placeholder')) unless $(@name).val();
+    
     $.ajax $(@form).attr('action'),
       type: 'post',
       data: $(@form).serialize(),
       dataType: 'json',
       success: (data) =>
-        @updateSavedMaps(data.id);
         $("#infoBox").modal("hide");
       error: (jqXhr, status, error) ->
         $("#infoBox modal-body").html error
       complete: (jqXhr, status) ->
-        console.log( jqXhr, status);
+        $("#infoBox").modal("hide");
 
     return true
   updateSavedMaps: (id) ->
