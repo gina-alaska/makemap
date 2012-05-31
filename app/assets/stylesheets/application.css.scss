@@ -61,6 +61,10 @@ html {
   bottom: 0px;
 }
 
+.dropdown-menu {
+  z-index: 10000;
+}
+
 .olControlPanel {
   right: 20px;
   top: 0;
