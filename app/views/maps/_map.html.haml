@@ -5,11 +5,12 @@
     Download:
     %ul.unstyled
       %li
-        =link_to "GeoTiff", map.mapimage.url
+        =link_to "GeoTiff", map.mapimage.url, :target => "_blank"
       %li
-        =link_to "JPEG", map.mapimage.url(:jpg)
+        =link_to "JPEG", map.mapimage.url(:jpg), :target => "_blank"
       %li
-        =link_to "World File", map.mapimage.url(:world)
+        =link_to "World File", map.mapimage.url(:world), :target => "_blank"
       %li
-        =link_to "Aux XML", map.mapimage.url(:auxxml)
-        =#link_to "Proj File", map.mapimage.url(:proj)
+        =link_to "Aux XML", map.mapimage.url(:auxxml), :target => "_blank"
+      %li
+        =link_to ".Prj File", "http://spatialreference.org/ref/epsg/3338/prj/"
