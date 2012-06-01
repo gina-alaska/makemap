@@ -1,16 +1,17 @@
-.thumbnail.well
-  =image_tag map.mapimage.thumb.url
-  %h5=map.name
-  %p
-    Download:
-    %ul.unstyled
-      %li
-        =link_to "GeoTiff", map.mapimage.url, :target => "_blank"
-      %li
-        =link_to "JPEG", map.mapimage.url(:jpg), :target => "_blank"
-      %li
-        =link_to "World File", map.mapimage.url(:world), :target => "_blank"
-      %li
-        =link_to "Aux XML", map.mapimage.url(:auxxml), :target => "_blank"
-      %li
-        =link_to ".Prj File", "http://spatialreference.org/ref/epsg/3338/prj/"
+.span4
+  .thumbnail.well
+    =image_tag map.mapimage.thumb.url
+    %h5=map.name
+    %p
+      Download:
+      %ul.unstyled
+        %li
+          =link_to "GeoTiff", map.mapimage.url, :target => "_blank"
+        %li
+          =link_to "JPEG", map.mapimage.url(:jpg), :target => "_blank"
+        %li
+          =link_to "World File", map.mapimage.url(:world), :target => "_blank"
+        %li
+          =link_to "Aux XML", map.mapimage.url(:auxxml), :target => "_blank"
+        %li
+          =link_to ".Prj File", "http://spatialreference.org/ref/epsg/3338/prj/"

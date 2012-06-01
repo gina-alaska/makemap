@@ -11,6 +11,9 @@
       =label_tag :size, "Size", class: 'control-label'
       .controls
         =text_field_tag :size, nil, id: 'map-size', placeholder: '1000'
+        %p.help_block
+          This will the the size of the longer edge of your map.
+          Value must be between 200 and 10000
     .control-group
       =f.label :layer_id, "Layer", class: 'control-label'
       .controls      

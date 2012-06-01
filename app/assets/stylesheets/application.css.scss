@@ -44,7 +44,9 @@ html {
 }
 
 .container-fluid {
-  padding: 0px;
+  .without-pading {
+    padding: 0px;
+  }
 }
 
 #map-controls {
