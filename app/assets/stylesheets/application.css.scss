@@ -49,6 +49,21 @@ html {
   }
 }
 
+.map-request-window {
+  .map-entry {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.map-list {
+  .map-entry {
+    display: inline-block;
+    width: 300px;
+  }
+}
+
 #map-controls {
   position: absolute;
   top: 60px;

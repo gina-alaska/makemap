@@ -1,4 +1,3 @@
 .container-fluid
-  -@maps.each_slice(3) do |maps|
-    .row-fluid
-      =render maps
+  .map-list
+    =render @maps
