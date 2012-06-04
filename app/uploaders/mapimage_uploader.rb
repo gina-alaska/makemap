@@ -34,7 +34,7 @@ class MapimageUploader < CarrierWave::Uploader::Base
   
   # Create different versions of your uploaded files:
   version :thumb do
-    process :resize_to_fill => [160,120]
+    process :resize_to_fill => [260,180]
     process :quality => 85
     convert :jpg
     def full_filename (for_file = model.logo.file)
