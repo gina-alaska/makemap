@@ -15,13 +15,15 @@
           Pan
         #aoiTool.btn.btn-primary{'data-toggle' => 'button'}
           Select AOI
+        #clearTool.btn.btn-primary{'data-toggle' => 'button'}
+          Clear
       .btn-group
         =#link_to "Layer", "#", {'data-toggle' => 'dropdown', class: 'btn btn-inverse btn-dropdown'}
         =#render 'layers'
         #options.btn.btn-inverse
           Options
       .btn-group
-        #makeMapBtn.btn.btn-warning
+        #makeMapBtn.btn.btn-warning.disabled
           Make Map
   .row-fluid
     #map-container.span12
