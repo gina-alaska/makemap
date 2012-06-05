@@ -172,7 +172,9 @@ class @MakeMap
     e.preventDefault();
     $("#infoBox").modal
       backdrop: 'static'
-    
+      
+    $("#infoBox .modal-close").addClass("disabled");
+    $("#infoBox .modal-close").button('loading');
     $(@name).val($(@name).attr('placeholder')) unless $(@name).val();
     
     $.ajax $(@form).attr('action'),
@@ -183,9 +185,16 @@ class @MakeMap
         $("#infoBox").modal("hide");
         @updateSavedMaps(data.id);
       error: (jqXhr, status, error) ->
+        #response = $.parseJSON(jqXhr.responseText);
+        #TODO:  This should provide detailed error information, but
+        # response.errors and response['errors'] is causing a blow up for some reason
+        #console.log(response);
         $("#infoBox .modal-body").html error;
+        $("#infoBox .modal-close").button('reset')
+        $("#infoBox .modal-close").removeClass("disabled");
         
     return true
+
   updateSavedMaps: (id) ->
     $("#show-map .modal-body").html("Retrieving Your Map");
     $("#show-map").modal

@@ -15,6 +15,9 @@ $(document).ready(function() {
     $("#map-form").modal('toggle');
   });  
   $(".modal-close").click(function() {
+    if($(this).hasClass("disabled")) {
+      return false;
+    }
     $(this).parents(".modal").modal('hide');
   })
 });

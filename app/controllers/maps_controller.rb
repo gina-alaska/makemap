@@ -26,21 +26,19 @@ class MapsController < ApplicationController
     @map = Map.new mapParams
     
     # Cache in carrierwave
-    logger.info(@map.to_wms_query_string)
     @map.mapimage.download! @map.to_wms_query_string
-    
+
     if @map.save
       if request.xhr?
-        logger.info("XHR!")
         render :json => {success: true, id: @map.id }, :layout => false, :status => :accepted
       else
         render :json => {success: true, id: @map.id }, :status => :accepted
       end
     else
       if request.xhr?
-        render :json => {success: false, errors: @map.errors}, :layout => false
+        render :json => {success: false, errors: @map.errors}, :layout => false, :status => :rejected
       else
-        render :json => {success: false, errors: @map.errors}
+        render :json => {success: false, errors: @map.errors}, :status => :rejected
       end
     end
   end

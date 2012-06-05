@@ -33,8 +33,9 @@
   .modal-header
     Please Wait....
   .modal-body
-    .progress.active
-      .bar{:style => "width: '40%'"}
+  .modal-footer
+    .modal-close.btn.disabled{'data-loading-text' => "Generating your map, Please wait..."}
+      Dismiss
 
 #map-form.modal.hide
   .modal-header
