@@ -10,12 +10,13 @@
 .container-fluid.without-padding
   #map-controls
     .btn-toolbar
-      .btn-group
-        #panTool.btn.btn-primary{'data-toggle' => 'button'}
+      .btn-group{'data-toggle' => 'buttons-radio'}
+        #panTool.btn.btn-primary.active{'data-toggle' => 'button'}
           Pan
         #aoiTool.btn.btn-primary{'data-toggle' => 'button'}
           Select AOI
-        #clearTool.btn.btn-primary{'data-toggle' => 'button'}
+      .btn-group
+        #clearTool.btn.btn-primary
           Clear
       .btn-group
         =#link_to "Layer", "#", {'data-toggle' => 'dropdown', class: 'btn btn-inverse btn-dropdown'}

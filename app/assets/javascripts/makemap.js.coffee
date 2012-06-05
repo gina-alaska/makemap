@@ -25,7 +25,9 @@ class @MakeMap
     $('#aoiTool').click (params) =>
       @aoiTool.activate();  
     $('#clearTool').click (params) =>
+      @aoiTool.deactivate();
       @removeFeatures();
+      $("#panTool").button('toggle');
     $('#panTool').click (params) =>
       @aoiTool.deactivate(); 
     $("#makeMapBtn").click (params) =>
@@ -115,9 +117,12 @@ class @MakeMap
     @map.addLayer(feature.feature.layer);
     @map.zoomToExtent(feature.feature.geometry.getBounds());
     @setSize();
-    @aoiTool.deactivate();
     $(@bbox).val(feature.feature.geometry.toString());
+    
+    @aoiTool.deactivate();
+    $("#panTool").button('toggle');
     $("#makeMapBtn").removeClass("disabled");
+    
     #Now we need to make a wms request
     @getPreviewLayer();
     
