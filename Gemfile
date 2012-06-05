@@ -40,6 +40,7 @@ end
 
 #Parse xml repsonse from wms server
 gem 'nokogiri'
+gem 'kaminari'
 
 # Carrierwave/imagemagick gems for image cache
 gem 'carrierwave', :git => "git://github.com/jnicklas/carrierwave.git"

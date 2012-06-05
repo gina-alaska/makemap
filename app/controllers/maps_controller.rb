@@ -2,8 +2,8 @@ class MapsController < ApplicationController
   respond_to :html, :json
   
   def index
-    @map = Map.new
-    @maps = Map.order("id DESC")
+    #@map = Map.new
+    @maps = Map.order("created_at DESC").page(params[:page])
   end
   
   def show
