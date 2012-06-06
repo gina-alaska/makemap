@@ -95,7 +95,7 @@ class MapimageUploader < CarrierWave::Uploader::Base
     result = image.composite(wmimage) do |img|
       img.gravity "southwest"
       img.dissolve "30%"
-      img.geometry "+#{rand(20..40)}+#{rand(20..40)}"
+      img.geometry "+20+20"
     end
     attribution = "#{model.layer.title} #{model.layer.attribution}"
     result.combine_options :convert do |img|
