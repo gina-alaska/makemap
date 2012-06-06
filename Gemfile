@@ -44,5 +44,6 @@ gem 'kaminari'
 
 # Carrierwave/imagemagick gems for image cache
 gem 'carrierwave', :git => "git://github.com/jnicklas/carrierwave.git"
-gem 'rmagick'
-
+# ImageMagick GeoTiffs are broken, so we have to use GraphicsMagick.  RMagick doens't support it so we have to use MiniMagick
+# MiniMagick master isn't accepting pull requests to fix compatability with GraphicsMagick so we have to use this fork.
+gem 'mini_magick', :git => "git://github.com/fschwahn/mini_magick.git", :branch => "refactor_identify_errors"
