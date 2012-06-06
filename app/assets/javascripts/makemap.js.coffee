@@ -19,6 +19,7 @@ class @MakeMap
     $(@size).blur => 
       @setSize();
     $(@layers).change =>
+      @showAbstractForLayer();
       @redrawPreviewLayer();  
       
 
@@ -135,6 +136,13 @@ class @MakeMap
       @aoiLayer.removeAllFeatures();
     if @previewLayer and @map.getLayersByName("preview").length > 0
       @map.removeLayer(@previewLayer)
+  
+  showAbstractForLayer: ->
+    layer_id = $(@form).find("#map_layer_id").val();
+    $(@form).find(".layer-abstract").addClass("hide");
+    $("#layer_" + layer_id).removeClass("hide");
+    return true
+  
       
   redrawPreviewLayer: ->
     if @previewLayer and @map.getLayersByName("preview").length > 0
