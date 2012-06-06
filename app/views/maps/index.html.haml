@@ -1,3 +1,6 @@
+=content_for :header_nav do
+  %li
+    =link_to "Back to Map", root_url
 .container-fluid
   = paginate @maps
   .map-list
