@@ -10,4 +10,11 @@
   = paginate @maps
   .map-list
     =render @maps
+    -if @maps.empty?
+      .hero-unit
+        %h1 
+          Welcome to MakeMap!
+        %p
+          You have no maps,  get started by creating one
+          =link_to "here", root_url
   = paginate @maps
