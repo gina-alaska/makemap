@@ -5,7 +5,6 @@ class MapsController < ApplicationController
     @maps = Map.order("created_at DESC").page(params[:page])
     if params[:mine] # and !cookies[:makemap].nil?
       @maps = @maps.where(:id => cookies[:makemap].try(:split, ","))
-      cookies[:makemap] = nil
     end
     
   end
