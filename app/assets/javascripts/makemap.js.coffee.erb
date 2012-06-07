@@ -167,7 +167,7 @@ class @MakeMap
       layer_id = $(@form).find("#map_layer_id").prop("selectedIndex");
       $(form).find("#map_layer_id").prop("selectedIndex", layer_id);
       
-      $.get "<%= Rails.application.routes.url_helpers.preview_maps_path %>", $(form).serialize(), (data) =>
+      $.get "<%= Rails.application.routes.url_helpers.preview_maps_url %>", $(form).serialize(), (data) =>
         @previewLayer = new OpenLayers.Layer.Image "preview", data.cachedImage, bounds, new OpenLayers.Size(width, height), 
           visibility: true
         
