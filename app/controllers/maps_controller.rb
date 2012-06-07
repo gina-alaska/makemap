@@ -38,9 +38,9 @@ class MapsController < ApplicationController
         cookies[:makemap] += ",#{@map.id}"
       end
       if request.xhr?
-        render :json => {success: true, id: @map.id }, :layout => false, :status => :accepted
+        render :json => {success: true, url: map_path(@map) }, :layout => false, :status => :accepted
       else
-        render :json => {success: true, id: @map.id }, :status => :accepted
+        render :json => {success: true, url: map_path(@map) }, :status => :accepted
       end
     else
       if request.xhr?
