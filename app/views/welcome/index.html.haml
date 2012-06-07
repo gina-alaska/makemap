@@ -5,7 +5,7 @@
       %li
         =link_to "All Maps", maps_url
       %li
-        =#link_to "Map", map_url(Map.last)
+        =link_to "My Maps", maps_url(:mine => true)
             
 .container-fluid.without-padding
   #map-controls

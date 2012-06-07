@@ -1,9 +1,13 @@
 =content_for :header_nav do
   %li
     =link_to "Back to Map", root_url
+  %li
+    -if params[:mine]
+      =link_to "All Maps", maps_url
+    -else
+      =link_to "My Maps", maps_url(:mine=>true)
 .container-fluid
   = paginate @maps
   .map-list
     =render @maps
-    
   = paginate @maps

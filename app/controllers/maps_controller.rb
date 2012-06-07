@@ -2,8 +2,10 @@ class MapsController < ApplicationController
   respond_to :html, :json
   
   def index
-    #@map = Map.new
     @maps = Map.order("created_at DESC").page(params[:page])
+    if params[:mine] # and !cookies[:makemap].nil?
+      @maps = @maps.where(:id => cookies[:makemap].try(:split, ","))
+    end
   end
   
   def show
@@ -29,6 +31,11 @@ class MapsController < ApplicationController
     @map.mapimage.download! @map.to_wms_query_string
 
     if @map.save
+      if cookies[:makemap].nil?
+        cookies[:makemap] = @map.id
+      else
+        cookies[:makemap] += ",#{@map.id}"
+      end
       if request.xhr?
         render :json => {success: true, id: @map.id }, :layout => false, :status => :accepted
       else
