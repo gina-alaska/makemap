@@ -12,6 +12,7 @@ class @MakeMap
     @bbox = $(@form).find("#map-bbox");
     @wms = $(@form).find("#wms");
     @layers = $(@form).find("#map_layer_id")
+    @submitBtn = ".makeMapBtn"
     
     @ratio = 1;
     
@@ -31,8 +32,8 @@ class @MakeMap
       $("#panTool").button('toggle');
     $('#panTool').click (params) =>
       @aoiTool.deactivate(); 
-    $("#makeMapBtn").click (params) =>
-      return false if $("#makeMapBtn").hasClass("disabled");
+    $(@submitBtn).click (params) =>
+      return false if $(@submitBtn).hasClass("disabled");
       @createMap(params);
     
   initMap: (el) ->
@@ -122,7 +123,7 @@ class @MakeMap
     
     @aoiTool.deactivate();
     $("#panTool").button('toggle');
-    $("#makeMapBtn").removeClass("disabled");
+    $(@submitBtn).removeClass("disabled");
     
     #Now we need to make a wms request
     @getPreviewLayer();
@@ -131,7 +132,7 @@ class @MakeMap
   
     
   removeFeatures: ->
-    $("#makeMapBtn").addClass("disabled");
+    $(@submitBtn).addClass("disabled");
     if @aoiLayer
       @aoiLayer.removeAllFeatures();
     if @previewLayer and @map.getLayersByName("preview").length > 0

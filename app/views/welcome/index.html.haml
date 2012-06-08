@@ -19,12 +19,10 @@
         #clearTool.btn.btn-primary
           Clear
       .btn-group
-        =#link_to "Layer", "#", {'data-toggle' => 'dropdown', class: 'btn btn-inverse btn-dropdown'}
-        =#render 'layers'
         #options.btn.btn-inverse
           Options
       .btn-group
-        #makeMapBtn.btn.btn-warning.disabled
+        .makeMapBtn.btn.btn-warning.disabled
           Make Map
   .row-fluid
     #map-container.span12
@@ -43,8 +41,11 @@
   .modal-body
     =render 'maps/form'
   .modal-footer
-    .modal-close.btn.pull-right
-      Accept
+    .btn-toolbar.pull-right
+      .makeMapBtn.btn.btn-warning.disabled{'data-dismiss' => 'modal'}
+        Make Map
+      .modal-close.btn
+        Accept
 
 #show-map.modal.hide
   .modal-header
