@@ -17,7 +17,7 @@ set :user, "webdev"
 
 role :app, "makemap.x.gina.alaska.edu"
 role :web, "makemap.x.gina.alaska.edu"
-
+role :db, "makemap.x.gina.alaska.edu"
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
