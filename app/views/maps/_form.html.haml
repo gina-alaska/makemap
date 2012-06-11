@@ -1,4 +1,4 @@
-=form_for @map, html: { class: 'form-horizontal'} do |f|
+=form_for @map, html: { class: 'form-horizontal', 'data-preview' => preview_maps_url } do |f|
   %fieldset
     =f.hidden_field :bbox, :id => 'map-bbox'
     =f.hidden_field :width, :id => 'map-width'
