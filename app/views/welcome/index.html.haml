@@ -6,26 +6,24 @@
         =link_to "All Maps", maps_url
       %li
         =link_to "My Maps", maps_url(:mine => true)
-            
-.container-fluid.without-padding
-  #map-controls
-    .btn-toolbar
-      .btn-group{'data-toggle' => 'buttons-radio'}
-        #panTool.btn.btn-primary.active{'data-toggle' => 'button'}
-          Pan
-        #aoiTool.btn.btn-primary{'data-toggle' => 'button'}
-          Select AOI
-      .btn-group
-        #clearTool.btn.btn-primary
-          Clear
-      .btn-group
-        #options.btn.btn-inverse
-          Options
-      .btn-group
-        .makeMapBtn.btn.btn-warning.disabled
-          Make Map
-  .row-fluid
-    #map-container.span12
+
+#map-controls
+  .btn-toolbar
+    .btn-group{'data-toggle' => 'buttons-radio'}
+      #panTool.btn.btn-primary.active{'data-toggle' => 'button'}
+        Pan
+      #aoiTool.btn.btn-primary{'data-toggle' => 'button'}
+        Select AOI
+    .btn-group
+      #clearTool.btn.btn-primary
+        Clear
+    .btn-group
+      #options.btn.btn-inverse
+        Options
+    .btn-group
+      .makeMapBtn.btn.btn-warning.disabled
+        Make Map
+#map-container
       
 #infoBox.modal.hide
   .modal-header
