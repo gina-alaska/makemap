@@ -63,7 +63,7 @@ class @MakeMap
       handlerOptions:
         irregular: true
 
-    @map.zoomTo(3);        
+    # @map.zoomTo(3);        
     @map.addControls([@aoiTool]);    
       
       
