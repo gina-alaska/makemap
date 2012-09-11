@@ -1,0 +1,1 @@
+Makemap::Application.config.map_site = 'Alaska - EPSG:3338'
