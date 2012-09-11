@@ -37,9 +37,11 @@ class @MakeMap
       @createMap(params);
     
   initMap: (el) ->
+    site = $(el).attr('data-site') || 'Alaska - EPSG:3338'
+    
     @map = $(el).OpenLayers
       units: 'm'
-      site: "Alaska - EPSG:3338",
+      site: site,
       displayProjection: new OpenLayers.Projection("EPSG:4326")  
       eventListeners: 
         zoomend: =>
