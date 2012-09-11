@@ -39,7 +39,7 @@ class @MakeMap
   initMap: (el) ->
     @map = $(el).OpenLayers
       units: 'm'
-      projection: "EPSG:3338",
+      site: "Alaska - EPSG:3338",
       displayProjection: new OpenLayers.Projection("EPSG:4326")  
       eventListeners: 
         zoomend: =>
