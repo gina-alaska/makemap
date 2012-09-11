@@ -63,9 +63,6 @@ class @MakeMap
       handlerOptions:
         irregular: true
 
-        
-    Gina.Layers.inject(@map, 'TILE.EPSG:3338.*');
-     
     @map.zoomTo(3);        
     @map.addControls([@aoiTool]);    
       
