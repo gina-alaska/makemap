@@ -1,10 +1,13 @@
 //= require jquery
 //= require jquery_ujs
-//= require_self
-//= require ./gina-map-layers/debug/gina-openlayers.js
 //= require bootstrap
 //= require ./jq-openlayers
+//= require ./gina-map-layers/gina-openlayers.js
+//= require ./gina-map-layers/projections/all.js
 //= require ./makemap
+//= require_self
+
+
 
 var makemap;
 
