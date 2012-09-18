@@ -6,8 +6,7 @@ $.fn.extend
   OpenLayers: (options) ->
     config = 
       map: null,
-      layers: null,
-      projection: 'EPSG:3338'
+      layers: null
     
     mapConfig =  {}
     
