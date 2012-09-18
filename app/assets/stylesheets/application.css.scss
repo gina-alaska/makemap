@@ -60,7 +60,7 @@ html {
 .map-list {
   .map-entry {
     display: inline-block;
-    width: 290px;
+    width: 320px;
   }
 }
 
@@ -120,11 +120,28 @@ html {
   @include mapToolIcons('olControlSelectFeatureItem', '/assets/geo/pointer-info.png');
   @include mapToolIcons('olControlDrawFeatureItem', '/assets/geo/shape_square_blue.png', '5px 5px');
 }
-
+.logo {
+  display: inline-block;
+  padding: 2px;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  -webkit-mask-image: url('/assets/makemap.png');
+  -webkit-mask-size: 36px 36px;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-origin: content;
+  background: url('/assets/makemap.png') no-repeat 2px 2px;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%,
+   from(rgba(126, 126, 126, 0.9)), to(rgba(164, 164, 164, 0.9)));
+}
 
 .olControlMousePosition {
   background-color: $mouse-bg;
   background-color: transparentize( $mouse-bg, 0.25 );
+}
+
+.olControlDrawFeatureActive { 
+  cursor: crosshair;
 }
 
 .geoShapeSquare {

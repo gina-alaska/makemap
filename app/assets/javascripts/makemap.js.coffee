@@ -44,7 +44,7 @@ class @MakeMap
       eventListeners: 
         zoomend: =>
           @redrawPreviewLayer()  
-      
+     
     @aoiLayer = new OpenLayers.Layer.Vector "aoi", 
       displayInLayerSwitcher: false,
       eventListeners:
@@ -63,11 +63,11 @@ class @MakeMap
       handlerOptions:
         irregular: true
 
-        
-    Gina.Layers.inject(@map, 'TILE.EPSG:3338.*');
-     
-    @map.zoomTo(3);        
-    @map.addControls([@aoiTool]);    
+    if @map?    
+      Gina.Layers.inject(@map, 'TILE.EPSG:3338.*');
+       
+      @map.zoomTo(3);        
+      @map.addControls([@aoiTool]);    
       
       
   setHeight: (height = null) -> 

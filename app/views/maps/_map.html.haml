@@ -1,18 +1,25 @@
 .map-entry
   .thumbnail.well
+    .page-heading
+      %h4=map.name
     =image_tag map.mapimage.thumb.url
-    .caption
-      %h5=map.name
-      %p
-        Download:
-      %ul.unstyled
-        %li
-          =link_to "GeoTiff", map.mapimage.url, :target => "_blank"
-        %li
-          =link_to "JPEG", map.mapimage.url(:jpg), :target => "_blank"
-        %li
-          =link_to "World File", map.mapimage.url(:world), :target => "_blank"
-        %li
-          =link_to "Aux XML", map.mapimage.url(:auxxml), :target => "_blank"
-        %li
-          =link_to ".Prj File", "http://spatialreference.org/ref/epsg/3338/prj/"
+    %p
+      .btn-group
+        =link_to "#", class: 'btn btn-primary dropdown-toggle', data: {toggle: 'dropdown'} do
+          Download:
+          %span.caret
+        %ul.dropdown-menu
+          %li
+            =link_to "GeoTiff", map.mapimage.url, :target => "_blank"
+          %li
+            =link_to "JPEG", map.mapimage.url(:jpg), :target => "_blank"
+          %li
+            =link_to "World", map.mapimage.url(:world), :target => "_blank"
+          %li
+            =link_to "AuxXML", map.mapimage.url(:auxxml), :target => "_blank"
+          %li
+            =link_to "Prj", "http://spatialreference.org/ref/epsg/3338/prj/"
+    .page-heading
+      %h3= "Metadata"
+      
+    =#map.bbox
