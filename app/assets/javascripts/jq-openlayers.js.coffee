@@ -6,36 +6,36 @@ $.fn.extend
   OpenLayers: (options) ->
     config = 
       map: null,
-      layers: null,
-      projection: 'EPSG:3338',
-      defaultZoom: 2,
-      defaultCenter: new OpenLayers.LonLat(-147.849, 64.856)
+      layers: null
     
     mapConfig =  {}
-        
-    projections =        
+    
+    siteConfigs =
       # Alaska centric polar projection
-      'EPSG:3572': 
-        defaultLayers: ['TILE.EPSG:3572.BDL', 'TILE.EPSG:3572.OSM_OVERLAY'],
+      'Alaska - EPSG:3572': 
+        defaultLayers: ['TILE.EPSG:3572.*'],
         minZoomLevel: 2,
+        defaultBounds: new OpenLayers.Bounds(-2106121.205656,-4037734.1903821,2003133.434954,-1806995.9569081),
         maxExtent: new OpenLayers.Bounds(-12742200.0, -7295308.34278405, 7295308.34278405, 12742200.0),
         maxResolution: (20037508.34278405 / 256.0),
         units: 'm',
         projection: "EPSG:3572",
         displayProjection: new OpenLayers.Projection("EPSG:4326")
       # Alaskan Albers Equal Area
-      'EPSG:3338': 
-        defaultLayers: ['TILE.EPSG:3338.BDL', 'TILE.EPSG:3338.OSM', 'TILE.EPSG:3338.OSM_OVERLAY'],
+      'Alaska - EPSG:3338': 
+        defaultLayers: ['TILE.EPSG:3338.*'],
+        defaultBounds: new OpenLayers.Bounds(-2802734.375,-176025.390625,2939453.125,2941162.109375),
         maxExtent: new OpenLayers.Bounds(-3500000, -3500000, 3500000, 3500000),
         maxResolution: (3500000 * 2.0 / 256.0),
         minZoomLevel: 2,
         units: 'm',
         projection: "EPSG:3338",
         displayProjection: new OpenLayers.Projection("EPSG:4326")
-      #  TODO find the espg code for the google projections
-      'google': 
-        defaultLayers: ['TILE.EPSG:3857.BDL', 'TILE.EPSG:3857.OSM', 'TILE.EPSG:3857.TOPO', 'TILE.EPSG:3857.CHARTS', 'TILE.EPSG:3857.OSM_OVERLAY'],
-        projection: "EPSG:900913",
+      # Web Mercator
+      'USA - EPSG:3857': 
+        defaultLayers: ['TILE.EPSG:3857.*'],
+        projection: "EPSG:3857",
+        defaultBounds: new OpenLayers.Bounds(-15130862.621001,2553608.2405956,-6912353.3409229,7015084.7069238);
         units: 'm',
         maxResolution: 156543.0339,
         maxExtent: new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508),
@@ -45,17 +45,16 @@ $.fn.extend
       for el in this
         unless $.data(el, "map") 
           $.extend config, options
-          
-          mapConfig = $.extend {}, projections[config.projection], config
-          
+          mapConfig = $.extend {}, siteConfigs[config.site], config
           mapConfig.defaultLayers = config.layers if config.layers 
       
           map = new OpenLayers.Map(el, mapConfig);
+          
           Gina.Layers.inject map, mapConfig.defaultLayers
           
-          center = config.defaultCenter.clone();
-          center.transform map.displayProjection, map.getProjectionObject();
-          map.setCenter center, config.defaultZoom;
+          bounds = mapConfig.defaultBounds
+          # bounds.transform map.displayProjection, map.getProjectionObject();
+          map.zoomToExtent bounds
           
           map.addControl(new OpenLayers.Control.Attribution);
           
