@@ -6,18 +6,16 @@
     = javascript_include_tag "application"
     = stylesheet_link_tag "application"
   %body
-    .navbar
+    .navbar.navbar-static-top.navbar-inverse
       .navbar-inner
-        .container
-          .logo.pull-left
-          =link_to "MakeMap", root_url, class: :brand
-          %ul.nav.pull-left
-            = yield :header_nav
-          %ul.nav.pull-right
-            %li
-              =link_to "Code", "http://github.com/gina-alaska/makemap", target: "_blank"
-            %li
-              =link_to "Issues", "http://github.com/gina-alaska/makemap/issues", target: "_blank"
-            %li
-              =link_to "Help", "#help"
+        =link_to "MakeMap", root_url, class: :brand
+        %ul.nav.pull-left
+          = yield :header_nav
+        %ul.nav.pull-right
+          %li
+            =link_to "Code", "http://github.com/gina-alaska/makemap", target: "_blank"
+          %li
+            =link_to "Issues", "http://github.com/gina-alaska/makemap/issues", target: "_blank"
+          %li
+            =link_to "Help", "#help"
     = yield

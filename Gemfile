@@ -8,7 +8,7 @@ gem 'rails', '3.2.2'
 gem 'sqlite3'
 gem 'haml'
 gem 'capistrano'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 2.1.0.0'
 gem 'nofxx-georuby', :require => 'geo_ruby'
 
 # Gems used only for assets and not required

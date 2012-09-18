@@ -62,6 +62,6 @@ class MapsController < ApplicationController
   
   protected
   def mapParams
-    params[:map].slice(:bbox, :name, :width, :height, :layer_id)
+    params[:map].slice(:bbox, :name, :width, :height, :layer_id,:projection)
   end
 end
