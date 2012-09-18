@@ -23,4 +23,9 @@
           -@layers.each do |layer|
             .layer-abstract{id: "layer_#{layer.id}", class: layer == @layers.first ? "" : "hide"}
               =layer.abstract
-          
+    .control-group
+      =f.label :projection, "Projection", class: 'control-label'
+      .controls
+        =f.select :projection, options_for_select([["Geographic","EPSG:4326"],["Web Mercator(Google)","EPSG:3857"],["Alaskan Albers","EPSG:3338"]])
+        %p.help_block
+          Controls the output projection of your map       

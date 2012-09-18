@@ -15,4 +15,4 @@
         %li
           =link_to "Aux XML", map.mapimage.url(:auxxml), :target => "_blank"
         %li
-          =link_to ".Prj File", "http://spatialreference.org/ref/epsg/3338/prj/"
+          =link_to ".Prj File", "http://spatialreference.org/ref/#{map.projection.gsub(/:/,"/").downcase}/prj/"

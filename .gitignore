@@ -10,3 +10,5 @@ public/uploads/
 *.swp
 .redcar
 config/deploy.rb
+
+config/initializers/map.rb
