@@ -17,7 +17,6 @@ class Map < ActiveRecord::Base
   paginates_per 16
     
   def to_wms_query_string opts = {}
-    #TODO:  Allow user to pick projection
     type = opts[:type] || "image/tiff"
     ext = opts[:ext] || "tif"
     logger.info(self.inspect)
@@ -27,12 +26,12 @@ class Map < ActiveRecord::Base
       "LAYERS=#{layer.name}",
       "FORMAT=#{type}",
       "BBOX=#{wms_bounding_box}",
-      "SRS=EPSG:3338",
+      "SRS=#{self.projection}",
       "WIDTH=#{self.width}",
       "HEIGHT=#{self.height}",
       "reaspect=false"].join('&')
     
-      "#{self.layer.wms.hostname}/#{self.name}.#{ext}?#{query}"
+      "#{self.layer.wms.hostname}/#{self.name}#{ext}?#{query}"
   end
   
   def wms_bounding_box

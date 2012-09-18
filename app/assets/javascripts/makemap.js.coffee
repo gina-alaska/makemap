@@ -11,6 +11,7 @@ class @MakeMap
     @size = $(@form).find("#map-size");
     @bbox = $(@form).find("#map-bbox");
     @wms = $(@form).find("#wms");
+    @projection = $(@form).find("#map_projection");
     @layers = $(@form).find("#map_layer_id")
     @submitBtn = ".makeMapBtn"
     
@@ -22,6 +23,9 @@ class @MakeMap
     $(@layers).change =>
       @showAbstractForLayer();
       @redrawPreviewLayer();  
+    
+    $(@projection).change =>
+      @recalculateBbox();
       
 
     $('#aoiTool').click (params) =>
@@ -113,12 +117,12 @@ class @MakeMap
     @setRatio (gWidth / gHeight)
     
   aoiAdd: (feature) ->
-    geom = feature.feature.geometry.clone();    #map = feature.object.map;
-    geom.transform( @map.getProjectionObject(),  @map.displayProjection);
-    @map.addLayer(feature.feature.layer);
-    @map.zoomToExtent(feature.feature.geometry.getBounds());
+    @feature = feature.feature
+    @map.addLayer(@feature.layer);
+    @map.zoomToExtent(@feature.geometry.getBounds());
     @setSize();
-    $(@bbox).val(feature.feature.geometry.toString());
+
+    @recalculateBbox();
     
     @aoiTool.deactivate();
     $("#panTool").button('toggle');
@@ -129,6 +133,12 @@ class @MakeMap
     
     return true
   
+  recalculateBbox: ->
+    return unless @feature?;
+    geom = @feature.geometry.clone();    #map = feature.object.map;
+    geom.transform( @map.getProjectionObject(), @projection.val());
+    $(@bbox).val(geom.toString());
+    
     
   removeFeatures: ->
     $(@submitBtn).addClass("disabled");
@@ -162,6 +172,8 @@ class @MakeMap
       form = $(@form).clone();   
       $(form).find("#map-width").val(width);
       $(form).find("#map-height").val(height);
+      $(form).find("#map_projection").val(@map.projection)
+      $(form).find("#map-bbox").val(@feature.geometry.toString());
       #This is a workaround because jquery doesn't clone the selected option
       # Ticket #1294
       layer_id = $(@form).find("#map_layer_id").prop("selectedIndex");

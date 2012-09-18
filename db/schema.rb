@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120606014857) do
+ActiveRecord::Schema.define(:version => 20120918193148) do
 
   create_table "layers", :force => true do |t|
     t.integer  "wms_id"
@@ -35,10 +35,11 @@ ActiveRecord::Schema.define(:version => 20120606014857) do
     t.integer  "width"
     t.integer  "height"
     t.text     "bbox"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.string   "mapimage"
     t.integer  "layer_id"
+    t.string   "projection", :default => "EPSG:4326"
   end
 
   create_table "wms", :force => true do |t|
