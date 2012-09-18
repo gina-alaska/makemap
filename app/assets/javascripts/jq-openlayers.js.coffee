@@ -33,7 +33,7 @@ $.fn.extend
         displayProjection: new OpenLayers.Projection("EPSG:4326")
       # Web Mercator
       'USA - EPSG:3857': 
-        defaultLayers: ['TILE.EPSG:3857.*'],
+        defaultLayers: ['TILE.EPSG:3857.AV_BLUEMARBLE'],
         projection: "EPSG:3857",
         defaultBounds: new OpenLayers.Bounds(-15130862.621001,2553608.2405956,-6912353.3409229,7015084.7069238);
         units: 'm',
